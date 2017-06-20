@@ -1,0 +1,4 @@
+XamarinATime.MainActivity, XamarinATime;md59b027869e35d5e245429e88c3b3bfae8.MainActivity
+XamarinATime.MainActivity, XamarinATime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md59b027869e35d5e245429e88c3b3bfae8.MainActivity
+XamarinATime.MainActivity;md59b027869e35d5e245429e88c3b3bfae8.MainActivity
+xamarinatime.MainActivity;md59b027869e35d5e245429e88c3b3bfae8.MainActivity

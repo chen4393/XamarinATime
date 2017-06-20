@@ -1,0 +1,17 @@
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\bin\Debug\XamarinATime.dll
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\bin\Debug\XamarinATime.pdb
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\bin\Debug\XamarinATime.XamarinATime.apk
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\bin\Debug\XamarinATime.XamarinATime-Signed.apk
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\XamarinATime.dll
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\XamarinATime.pdb
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\android\bin\XamarinATime.XamarinATime.apk
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\res\layout\main.xml
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\res\values\strings.xml
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\res\drawable\icon.png
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\res\values\styles.xml
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\res\drawable\btn_blue.xml
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\R.cs.flag
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\uploadflags.txt
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\XamarinATime.csprojResolveAssemblyReference.cache
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\bin\Debug\XamarinATime.dll.mdb
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\android\assets\XamarinATime.dll.mdb
