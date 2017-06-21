@@ -1,4 +1,5 @@
-﻿using Java.Lang;
+﻿using Android.Util;
+using Java.Lang;
 using Java.Util;
 
 namespace XamarinATime
@@ -61,7 +62,11 @@ namespace XamarinATime
             {
                 t = DayOfYear + ((18.0 - lngHour) / 24.0);    // if setting
             }
-            
+            /*
+            string TAG = "Warning";
+            Log.Warn(TAG, "DayOfYear: " + DayOfYear.ToString());
+            Log.Warn(TAG, "lngHour: " + lngHour.ToString());
+            */
             // 3. calculate the Sun's mean anomaly
             double M = (0.9856 * t) - 3.289;
             

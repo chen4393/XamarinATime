@@ -12,6 +12,8 @@ namespace XamarinATime
     [Activity(Label = "XamarinATime", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        public const string TAG = "Warning";
+
         private Calendar current_cal;
 
         private int today_year, today_month, today_day, today_of_year;
@@ -91,7 +93,8 @@ namespace XamarinATime
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            current_cal = Calendar.GetInstance(TimeZone.Default);
+            TimeZone timeZone = TimeZone.GetTimeZone("GMT-05:00");
+            current_cal = Calendar.GetInstance(timeZone);
             today_year = current_cal.Get(CalendarField.Year);
             today_month = current_cal.Get(CalendarField.Month);
             today_day = current_cal.Get(CalendarField.DayOfMonth);
@@ -113,16 +116,19 @@ namespace XamarinATime
             displayDate = formater.Format(dis_date);
             timeDisplay.Text = displayDate;
 
-            string tag = "!MyApp";
+            user_latitude = 44.96987;
+            user_longitude = -93.22678;
+            user_offset = -5.00;
 
-            Log.Info(tag, dis_date.ToString());
-            Log.Warn(tag, "this is a warning message");
-            Log.Error(tag, "this is an error message");
-
+            Log.Warn(TAG, "this is a warning message");
+            Log.Error(TAG, "this is an error message");
+            
             InitPanel();
             CalculateTimeSequence();
 
             day_of_week = current_cal.Get(CalendarField.DayOfWeek);
+            //Log.Warn(TAG, today_year + " " + today_month + " " + today_day);
+            //Log.Warn(TAG, day_of_week.ToString());
             SetSequence(day_of_week);
         }
 
@@ -176,11 +182,15 @@ namespace XamarinATime
 
         private void CalculateTimeSequence()
         {
+            TimeZone timeZone = TimeZone.GetTimeZone("GMT-05:00");
+            current_cal = Calendar.GetInstance(timeZone);
             suntime = new SunTime(user_latitude, user_longitude, user_offset, current_cal);
             sunriseTime_todayDefault = suntime.sunriseTime;
             sunsetTime_todayDefault = suntime.sunsetTime;
             flagrise = suntime.flagrise;
             flagset = suntime.flagset;
+
+            Log.Warn(TAG, "current_cal: " + current_cal.ToString());
 
             Calendar c_temp_yesterday = new GregorianCalendar(current_cal.Get(CalendarField.Year),
                                                               current_cal.Get(CalendarField.Month), 
@@ -193,11 +203,12 @@ namespace XamarinATime
                                                              current_cal.Get(CalendarField.DayOfMonth) + 1);
             suntime = new SunTime(user_latitude, user_longitude, user_offset, c_temp_tomorrow);
             sunriseTime_tomorrowDefault = suntime.sunriseTime;
+            sunsetTime_tomorrowDefault = suntime.sunsetTime;
 
             int temp_1 = (86400 - sunsetTime_yesterdayDefault + sunriseTime_todayDefault) / 8;   // lastnight
             int temp_2 = (sunsetTime_todayDefault - sunriseTime_todayDefault) / 8;               // today
             int temp_3 = (86400 - sunsetTime_todayDefault + sunriseTime_tomorrowDefault) / 8;    // tonight
-            int temp_4 = (sunsetTime_tomorrowDefault - sunriseTime_tomorrowDefault) / 8;         // tomorrow
+            int temp_4 = (sunsetTime_tomorrowDefault - sunriseTime_tomorrowDefault) / 8;         // 
 
             for (int i = 0; i < 8; i++)
             {
@@ -417,26 +428,27 @@ namespace XamarinATime
         private string GetCurrentTimeString()
         {
             string results = null;
-            TimeZone timeZone = TimeZone.GetTimeZone("UTC-06:00");
+            TimeZone timeZone = TimeZone.GetTimeZone("GMT-05:00");
             Calendar calendar = Calendar.GetInstance(timeZone);
             int hour = calendar.Get(CalendarField.HourOfDay);
             int minute = calendar.Get(CalendarField.Minute);
+            Log.Warn(TAG, "Time: " + hour.ToString());
 
             if (hour > 12 && hour < 24)
             {
-                results = string.Format("%02d:%02d" + " PM", hour - 12, minute);
+                results = string.Format("{0:D2}:{1:D2}" + " PM", hour - 12, minute);
             }
             else if (hour == 12)
             {
-                results = string.Format("12:%02d" + " PM", minute);
+                results = string.Format("12:{0:D2}" + " PM", minute);
             }
             else if (hour > 0 && hour < 12)
             {
-                results = string.Format("%02d:%02d" + " AM", hour, minute);
+                results = string.Format("{0:D2}:{1:D2}" + " AM", hour, minute);
             }
             else if (hour == 0 || hour == 24)
             {
-                results = string.Format("12:%02d" + " AM", minute);
+                results = string.Format("12:{0:D2}" + " AM", minute);
             }
             
             return results;
