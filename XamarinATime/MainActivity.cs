@@ -88,6 +88,9 @@ namespace XamarinATime
         private int sunriseTime_tomorrowDefault;
         private int sunsetTime_tomorrowDefault;
 
+        private int mYear;
+        private int mDayOfYear;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -101,7 +104,8 @@ namespace XamarinATime
             today_month = current_cal.Get(CalendarField.Month);
             today_day = current_cal.Get(CalendarField.DayOfMonth);
             today_day = current_cal.Get(CalendarField.DayOfYear);
-
+            mYear = current_cal.Get(CalendarField.Year);
+            mDayOfYear = current_cal.Get(CalendarField.DayOfYear);
             Init();
         }
 
@@ -256,7 +260,8 @@ namespace XamarinATime
 
         private void SetSequence(int day)
         {
-            switch(day)
+            timeDisplay.SetTextColor(Color.Black);
+            switch (day)
             {
                 case 1:
                     for (int i = 0; i < 8; i++)
@@ -267,6 +272,7 @@ namespace XamarinATime
                         belowright[i + 1].Text = sunday_tomorrow[i] + " " + SplitTime(tomorrow_time[i]);
                     }
                     PaintColor();
+                    UpdateClockBackgroundColor(1);
                     break;
 
                 case 2:
@@ -278,6 +284,7 @@ namespace XamarinATime
                         belowright[i + 1].Text = monday_tomorrow[i] + " " + SplitTime(tomorrow_time[i]);
                     }
                     PaintColor();
+                    UpdateClockBackgroundColor(2);
                     break;
 
                 case 3:
@@ -289,6 +296,7 @@ namespace XamarinATime
                         belowright[i + 1].Text = tuesday_tomorrow[i] + " " + SplitTime(tomorrow_time[i]);
                     }
                     PaintColor();
+                    UpdateClockBackgroundColor(3);
                     break;
 
                 case 4:
@@ -300,6 +308,7 @@ namespace XamarinATime
                         belowright[i + 1].Text = wednesday_tomorrow[i] + " " + SplitTime(tomorrow_time[i]);
                     }
                     PaintColor();
+                    UpdateClockBackgroundColor(4);
                     break;
 
                 case 5:
@@ -311,6 +320,7 @@ namespace XamarinATime
                         belowright[i + 1].Text = thursday_tomorrow[i] + " " + SplitTime(tomorrow_time[i]);
                     }
                     PaintColor();
+                    UpdateClockBackgroundColor(5);
                     break;
 
                 case 6:
@@ -322,6 +332,7 @@ namespace XamarinATime
                         belowright[i + 1].Text = friday_tomorrow[i] + " " + SplitTime(tomorrow_time[i]);
                     }
                     PaintColor();
+                    UpdateClockBackgroundColor(6);
                     break;
 
                 case 7:
@@ -333,6 +344,7 @@ namespace XamarinATime
                         belowright[i + 1].Text = saturday_tomorrow[i] + " " + SplitTime(tomorrow_time[i]);
                     }
                     PaintColor();
+                    UpdateClockBackgroundColor(7);
                     break;
 
                 default:
@@ -373,7 +385,7 @@ namespace XamarinATime
             return results;
         }
 
-        // ???
+        // put the hand pointer symbol
         private void DrawMaker()
         {
             Calendar calendar = Calendar.GetInstance(TimeZone.Default);
@@ -402,6 +414,250 @@ namespace XamarinATime
                 {
                     belowleft[i].Text = token_2[1] + " " + token_2[2] + " " + token_2[3];
                 }
+            }
+
+            if (mYear == year_now && mDayOfYear == day_year_now)
+            {
+                int hour = calendar.Get(CalendarField.HourOfDay);
+                int minute = calendar.Get(CalendarField.Minute);
+                int second = calendar.Get(CalendarField.Second);
+                int temp = hour * 3600 + minute * 60 + second;
+
+                if (temp < today_time[0])
+                {  // last day night
+
+                    temp = temp + 86400;
+
+                    if (temp >= lastnight_time[0] - 20 && temp < lastnight_time[1] - 20)
+                    {
+                        upleft[1].Text = ("\u261E" + " " + upleft[1].Text);
+                    }
+
+                    else if (temp >= lastnight_time[1] - 20 && temp < lastnight_time[2] - 20)
+                    {
+                        upleft[2].Text = ("\u261E" + " " + upleft[2].Text);
+                    }
+
+                    else if (temp >= lastnight_time[2] - 20 && temp < lastnight_time[3] - 20)
+                    {
+                        upleft[3].Text = ("\u261E" + " " + upleft[3].Text);
+                    }
+
+                    else if (temp >= lastnight_time[3] - 20 && temp < lastnight_time[4] - 20)
+                    {
+                        upleft[4].Text = ("\u261E" + " " + upleft[4].Text);
+                    }
+
+                    else if (temp >= lastnight_time[4] - 20 && temp < lastnight_time[5] - 20)
+                    {
+                        upleft[5].Text = ("\u261E" + " " + upleft[5].Text);
+                    }
+
+                    else if (temp >= lastnight_time[5] - 20 && temp < lastnight_time[6] - 20)
+                    {
+                        upleft[6].Text = ("\u261E" + " " + upleft[6].Text);
+                    }
+
+                    else if (temp >= lastnight_time[6] - 20 && temp < lastnight_time[7] - 20)
+                    {
+                        upleft[7].Text = ("\u261E" + " " + upleft[7].Text);
+                    }
+
+                    else if (temp >= lastnight_time[7] - 20)
+                    {
+                        upleft[8].Text = ("\u261E" + " " + upleft[8].Text);
+                    }
+                }
+
+                else if (temp >= today_time[0] && temp < tonight_time[0])
+                {
+
+                    if (temp >= today_time[0] - 20 && temp < today_time[1] - 20)
+                    {
+                        upright[1].Text = ("\u261E" + " " + upright[1].Text);
+                    }
+
+                    else if (temp >= today_time[1] - 20 && temp < today_time[2] - 20)
+                    {
+                        upright[2].Text = ("\u261E" + " " + upright[2].Text);
+                    }
+
+                    else if (temp >= today_time[2] - 20 && temp < today_time[3] - 20)
+                    {
+                        upright[3].Text = ("\u261E" + " " + upright[3].Text);
+
+                    }
+
+                    else if (temp >= today_time[3] - 20 && temp < today_time[4] - 20)
+                    {
+                        upright[4].Text = ("\u261E" + " " + upright[4].Text);
+                    }
+
+                    else if (temp >= today_time[4] - 20 && temp < today_time[5] - 20)
+                    {
+                        upright[5].Text = ("\u261E" + " " + upright[5].Text);
+                    }
+
+                    else if (temp >= today_time[5] - 20 && temp < today_time[6] - 20)
+                    {
+                        upright[6].Text = ("\u261E" + " " + upright[6].Text);
+                    }
+
+                    else if (temp >= today_time[6] - 20 && temp < today_time[7] - 20)
+                    {
+                        upright[7].Text = ("\u261E" + " " + upright[7].Text);
+                    }
+
+                    else if (temp >= today_time[7] - 20 && temp < tonight_time[0] - 20)
+                    {
+                        upright[8].Text = ("\u261E" + " " + upright[8].Text);
+                    }
+                }
+                else
+                {
+
+                    if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                    {
+                        belowleft[1].Text = ("\u261E" + " " + belowleft[1].Text);
+                    }
+
+                    else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                    {
+                        belowleft[2].Text = ("\u261E" + " " + belowleft[2].Text);
+                    }
+
+                    else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                    {
+                        belowleft[3].Text = ("\u261E" + " " + belowleft[3].Text);
+                    }
+
+                    else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                    {
+                        belowleft[4].Text = ("\u261E" + " " + belowleft[4].Text);
+                    }
+
+                    else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                    {
+                        belowleft[5].Text = ("\u261E" + " " + belowleft[5].Text);
+                    }
+
+                    else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                    {
+                        belowleft[6].Text = ("\u261E" + " " + belowleft[6].Text);
+                    }
+
+                    else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                    {
+                        belowleft[7].Text = ("\u261E" + " " + belowleft[7].Text);
+                    }
+
+                    else if (temp >= tonight_time[7] - 20)
+                    {
+                        belowleft[8].Text = ("\u261E" + " " + belowleft[8].Text);
+                    }
+                }
+            }
+
+            else if ((mYear == today_year && mDayOfYear == today_of_year) && (day_year_now == today_of_year + 1 && year_now == today_year))
+            {
+
+                int hour = calendar.Get(CalendarField.HourOfDay);
+                int minute = calendar.Get(CalendarField.Minute);
+                int second = calendar.Get(CalendarField.Second);
+                int temp = hour * 3600 + minute * 60 + second;
+
+                temp = temp + 86400;
+
+                if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                {
+                    belowleft[1].Text = ("\u261E" + " " + belowleft[1].Text);
+                }
+
+                else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                {
+                    belowleft[2].Text = ("\u261E" + " " + belowleft[2].Text);
+                }
+
+                else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                {
+                    belowleft[3].Text = ("\u261E" + " " + belowleft[3].Text);
+                }
+
+                else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                {
+                    belowleft[4].Text = ("\u261E" + " " + belowleft[4].Text);
+                }
+
+                else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                {
+                    belowleft[5].Text = ("\u261E" + " " + belowleft[5].Text);
+                }
+
+                else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                {
+                    belowleft[6].Text = ("\u261E" + " " + belowleft[6].Text);
+                }
+
+                else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                {
+                    belowleft[7].Text = ("\u261E" + " " + belowleft[7].Text);
+                }
+
+                else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                {
+                    belowleft[8].Text = ("\u261E" + " " + belowleft[8].Text);
+                }
+            }
+            else if ((mYear == year_now && mDayOfYear == day_year_now - 1) && ((day_year_now == today_of_year && year_now == today_year)))
+            {
+
+                int hour = calendar.Get(CalendarField.HourOfDay);
+                int minute = calendar.Get(CalendarField.Minute);
+                int second = calendar.Get(CalendarField.Second);
+                int temp = hour * 3600 + minute * 60 + second;
+
+                temp = temp + 86400;
+
+                if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                {
+                    belowleft[1].Text = ("\u261E" + " " + belowleft[1].Text);
+                }
+
+                else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                {
+                    belowleft[2].Text = ("\u261E" + " " + belowleft[2].Text);
+                }
+
+                else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                {
+                    belowleft[3].Text = ("\u261E" + " " + belowleft[3].Text);
+                }
+
+                else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                {
+                    belowleft[4].Text = ("\u261E" + " " + belowleft[4].Text);
+                }
+
+                else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                {
+                    belowleft[5].Text = ("\u261E" + " " + belowleft[5].Text);
+                }
+
+                else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                {
+                    belowleft[6].Text = ("\u261E" + " " + belowleft[6].Text);
+                }
+
+                else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                {
+                    belowleft[7].Text = ("\u261E" + " " + belowleft[7].Text);
+                }
+
+                else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                {
+                    belowleft[8].Text = ("\u261E" + " " + belowleft[8].Text);
+                }
+
             }
         }
 
@@ -487,6 +743,1443 @@ namespace XamarinATime
             }
             
             return results;
+        }
+
+        private void UpdateClockBackgroundColor(int day)
+        {
+            Calendar calendar = Calendar.Instance;
+            bool isYesNight = false;
+            int year_now = calendar.Get(CalendarField.Year);
+            int day_year_now = calendar.Get(CalendarField.DayOfYear);
+            int hour = calendar.Get(CalendarField.HourOfDay);
+            int minute = calendar.Get(CalendarField.Minute);
+            int second = calendar.Get(CalendarField.Second);
+            // how many seconds we have passed so far in one day
+            int temp = hour * 3600 + minute * 60 + second;
+
+            if (year_now == today_year && day_year_now == today_of_year + 1)
+            {
+                temp = temp + 86400;
+            }
+            if (day_year_now == today_of_year && year_now == today_year)
+            {
+                isYesNight = true;
+            }
+
+            switch (day)
+            {
+                case 1:
+                    if (isYesNight == false)
+                    {
+                        if (temp < today_time[0])
+                        {
+                            temp += 86400;
+                            if (temp >= lastnight_time[0] - 20 && temp < lastnight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));      //LABH		   
+                            }
+
+                            else if (temp >= lastnight_time[1] - 20 && temp < lastnight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));         //UDWEG		 
+                            }
+
+                            else if (temp >= lastnight_time[2] - 20 && temp < lastnight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));        //SHUBH		    
+                            }
+
+                            else if (temp >= lastnight_time[3] - 20 && temp < lastnight_time[4])
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));        //AMRIT		  
+                            }
+
+                            else if (temp >= lastnight_time[4] - 20 && temp < lastnight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                               //CHAL
+                            }
+
+                            else if (temp >= lastnight_time[5] - 20 && temp < lastnight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));               //ROG
+                            }
+
+                            else if (temp >= lastnight_time[6] - 20 && temp < lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));               //KAAL
+                            }
+
+                            else if (temp >= lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));              //LABH
+                            }
+                        }
+                        else if (temp >= today_time[0] && temp < tonight_time[0])
+                        {
+                            if (temp >= today_time[0] - 20 && temp < today_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                  //UDWEG
+                            }
+                            else if (temp >= today_time[1] - 20 && temp < today_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                             //CHAL
+                            }
+                            else if (temp >= today_time[2] - 20 && temp < today_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));            //LABH
+                            }
+                            else if (temp >= today_time[3] - 20 && temp < today_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));            //AMRIT
+                            }
+                            else if (temp >= today_time[4] - 20 && temp < today_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));           //KAAL
+                            }
+                            else if (temp >= today_time[5] - 20 && temp < today_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));             //SHUBH
+                            }
+                            else if (temp >= today_time[6] - 20 && temp < today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));          //ROG
+                            }
+                            else if (temp >= today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));             //UDWEG
+                            }
+                        }
+                        else
+                        {
+                            if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));           //SHUBH
+                            }
+                            else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));        //AMRIT
+                            }
+                            else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                       //CHAL
+                            }
+                            else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));        //ROG
+                            }
+                            else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));        //KAAL
+                            }
+                            else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));        //LABH
+                            }
+                            else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));            //UDWEG
+                            }
+                            else if (temp >= tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));          //SHUBH
+                            }
+                        }
+                    }
+                    else
+                    {
+                        temp = temp + 86400;
+
+                        if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));           //SHUBH
+                        }
+
+                        else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));        //AMRIT
+                        }
+
+                        else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.White);                       //CHAL
+                        }
+
+                        else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));        //ROG
+                        }
+
+                        else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));        //KAAL
+                        }
+
+                        else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));        //LABH
+                        }
+
+                        else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));            //UDWEG
+                        }
+
+                        else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));          //SHUBH
+                        }
+                    }
+                    break;
+                case 2:
+                    if (isYesNight == false)
+                    {
+                        if (temp < today_time[0])
+                        {
+                            temp = temp + 86400;
+                            if (temp >= lastnight_time[0] - 20 && temp < lastnight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));                  //SHUBH
+                            }
+                            else if (temp >= lastnight_time[1] - 20 && temp < lastnight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));               //AMRIT
+                            }
+
+                            else if (temp >= lastnight_time[2] - 20 && temp < lastnight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                                //CHAL
+                            }
+
+                            else if (temp >= lastnight_time[3] - 20 && temp < lastnight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));               //ROG
+                            }
+
+                            else if (temp >= lastnight_time[4] - 20 && temp < lastnight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));               //KAAL
+                            }
+
+                            else if (temp >= lastnight_time[5] - 20 && temp < lastnight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));               //LABH
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= lastnight_time[6] - 20 && temp < lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                   //UDWEG
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));              //SHUBH
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+                        }
+                        else if (temp >= today_time[0] - 20 && temp < tonight_time[0] - 20)
+                        {
+                            if (temp >= today_time[0] - 20 && temp < today_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));   //AMRIT
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= today_time[1] - 20 && temp < today_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));   //KAAL
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= today_time[2] - 20 && temp < today_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));     //SHUBH
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190)); 
+                            }
+
+                            else if (temp >= today_time[3] - 20 && temp < today_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));   //ROG
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= today_time[4] - 20 && temp < today_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));       //UDWEG
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= today_time[5] - 20 && temp < today_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                   //CHAL
+                                                                                               //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= today_time[6] - 20 && temp < today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));    //LABH
+                                                                                                   //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));     //AMRIT
+                                                                                                    //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+                        }
+                        else
+                        {
+                            if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                        //CHAL
+                                                                                                    //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));        //ROG
+                                                                                                       //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));       //KAAL
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));       //LABH
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));          //UDWEG
+                                                                                                     //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));         //SHUBH
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));       //AMRIT
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                        //CHAL
+                                                                                                    //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        temp = temp + 86400;
+
+                        if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.White);                        //CHAL
+                        }
+
+                        else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));        //ROG
+                        }
+
+                        else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));       //KAAL
+                        }
+
+                        else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));       //LABH
+                        }
+
+                        else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));          //UDWEG
+                        }
+
+                        else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));         //SHUBH
+                        }
+
+                        else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));       //AMRIT
+                        }
+
+                        else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.White);                        //CHAL
+                        }
+
+                    }
+                    break;
+                case 3:
+                    if (isYesNight == false)
+                    {
+                        if (temp < today_time[0])
+                        {
+                            // lastnight 
+                            temp = temp + 86400;
+                            if (temp >= lastnight_time[0] - 20 && temp < lastnight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                                //CHAL
+                                                                                                            //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= lastnight_time[1] - 20 && temp < lastnight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));              //ROG
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= lastnight_time[2] - 20 && temp < lastnight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));              //KAAL
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= lastnight_time[3] - 20 && temp < lastnight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));               //LABH
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= lastnight_time[4] - 20 && temp < lastnight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                  //UDWEG
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0)); 
+                            }
+
+                            else if (temp >= lastnight_time[5] - 20 && temp < lastnight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));               //SHUBH
+                                                                                                            //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= lastnight_time[6] - 20 && temp < lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));                //AMRIT
+                                                                                                               //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255)); 
+                            }
+
+                            else if (temp >= lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                                //CHAL
+                                                                                                            //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+                        }
+                        else if (temp >= today_time[0] - 20 && temp < tonight_time[0] - 20)
+                        {
+                            // today - tonight
+                            if (temp >= today_time[0] - 20 && temp < today_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));              //ROG
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128)); 
+                            }
+
+                            else if (temp >= today_time[1] - 20 && temp < today_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                  //UDWEG
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= today_time[2] - 20 && temp < today_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                              //CHAL
+                                                                                                          //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= today_time[3] - 20 && temp < today_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));              //LABH
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= today_time[4] - 20 && temp < today_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));              //AMRIT
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= today_time[5] - 20 && temp < today_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));              //KAAL
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= today_time[6] - 20 && temp < today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));                //SHUBH
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));              //ROG
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+                        }
+                        else
+                        {
+                            //tonight - tomorrow
+                            if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));             //KAAL
+                                                                                                            //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));               //LABH
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                   //UDWEG
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));                 //SHUBH
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));            //AMRIT
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                           //CHAL
+                                                                                                       //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));            //ROG
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));            //KAAL
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        temp = temp + 86400;
+
+                        if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));             //KAAL
+                                                                                                        //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                        }
+
+                        else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));               //LABH
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                        }
+
+                        else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                   //UDWEG
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                        }
+
+                        else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));                 //SHUBH
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                        }
+
+                        else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));            //AMRIT
+                                                                                                       //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                        }
+
+                        else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.White);                           //CHAL
+                                                                                                   //dateDisplay.setBackgroundColor(Color.WHITE);
+                        }
+
+                        else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));            //ROG
+                                                                                                       //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                        }
+
+                        else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));            //KAAL
+                                                                                                       //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (isYesNight == false)
+                    {
+                        if (temp < today_time[0])
+                        {
+                            // lastnight 
+                            temp = temp + 86400;
+                            if (temp >= lastnight_time[0] - 20 && temp < lastnight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));                 //KAAL
+                                                                                                                //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= lastnight_time[1] - 20 && temp < lastnight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));                 //LABH
+                                                                                                                //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= lastnight_time[2] - 20 && temp < lastnight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                    //UDWEG
+                                                                                                               //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= lastnight_time[3] - 20 && temp < lastnight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));                 //SHUBH
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= lastnight_time[4] - 20 && temp < lastnight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));               //AMRIT
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= lastnight_time[5] - 20 && temp < lastnight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                               //CHAL
+                                                                                                           //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= lastnight_time[6] - 20 && temp < lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));               //ROG
+                                                                                                              //.setBackgroundColor(Color.argb(255,255,128,128)); 
+                            }
+
+                            else if (temp >= lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));               //KAAL
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190)); 
+                            }
+                        }
+                        else if (temp >= today_time[0] - 20 && temp < tonight_time[0] - 20)
+                        {
+                            // today - tonight
+                            if (temp >= today_time[0] - 20 && temp < today_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));            //LABH
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200)); 
+                            }
+
+                            else if (temp >= today_time[1] - 20 && temp < today_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));            //AMRIT
+                                                                                                           //.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= today_time[2] - 20 && temp < today_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));             //KAAL 
+                                                                                                            //.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= today_time[3] - 20 && temp < today_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));             //SHUBH
+                                                                                                          //.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= today_time[4] - 20 && temp < today_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));           //ROG
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= today_time[5] - 20 && temp < today_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));              //UDWEG
+                                                                                                         //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= today_time[6] - 20 && temp < today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                         //CHAL
+                                                                                                     //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));          //LABH
+                                                                                                         //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+                        }
+                        else
+                        {
+                            //tonight - tomorrow
+                            if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));         //UDWEG
+                                                                                                    //.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));         //SHUBH
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));       //AMRIT
+                                                                                                      //.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                      //CHAL
+                                                                                                  //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));  //ROG
+                                                                                                 //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));  //KAAL
+                                                                                                 //.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));    //LABH
+                                                                                                   //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));       //UDWEG
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        temp = temp + 86400;
+
+                        if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));         //UDWEG
+                                                                                                //.setBackgroundColor(Color.argb(255,255,0,0));
+                        }
+
+                        else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));         //SHUBH
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                        }
+
+                        else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));       //AMRIT
+                                                                                                  //.setBackgroundColor(Color.argb(255,175,230,255));
+                        }
+
+                        else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.White);                      //CHAL
+                                                                                              //dateDisplay.setBackgroundColor(Color.WHITE);
+                        }
+
+                        else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));  //ROG
+                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                        }
+
+                        else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));  //KAAL
+                                                                                             //.setBackgroundColor(Color.argb(255,255,190,190));
+                        }
+
+                        else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));    //LABH
+                                                                                               //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                        }
+
+                        else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));       //UDWEG
+                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                        }
+                    }
+                    break;
+                case 5:
+                    if (isYesNight == false)
+                    {
+                        if (temp < today_time[0])
+                        {
+                            // lastnight 
+                            temp = temp + 86400;
+                            if (temp >= lastnight_time[0] - 20 && temp < lastnight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                 //UDWEG
+                                                                                                            //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= lastnight_time[1] - 20 && temp < lastnight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));                  //SHUBH
+                                                                                                               //.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= lastnight_time[2] - 20 && temp < lastnight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));            //AMRIT
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= lastnight_time[3] - 20 && temp < lastnight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                                //CHAL
+                                                                                                            //.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= lastnight_time[4] - 20 && temp < lastnight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));               //ROG
+                                                                                                              //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= lastnight_time[5] - 20 && temp < lastnight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));           //KAAL
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= lastnight_time[6] - 20 && temp < lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));              //LABH
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200)); 
+                            }
+
+                            else if (temp >= lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));                 //UDWEG
+                                                                                                            //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0)); 
+                            }
+                        }
+                        else if (temp >= today_time[0] - 20 && temp < tonight_time[0] - 20)
+                        {
+                            // today - tonight
+                            if (temp >= today_time[0] - 20 && temp < today_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));              //SHUBH
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= today_time[1] - 20 && temp < today_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));            //ROG
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= today_time[2] - 20 && temp < today_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));              //UDWEG 
+                                                                                                         //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= today_time[3] - 20 && temp < today_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                          //CHAL
+                                                                                                      //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= today_time[4] - 20 && temp < today_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));           //LABH
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= today_time[5] - 20 && temp < today_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));           //AMRIT
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= today_time[6] - 20 && temp < today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));       //KAAL
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));           //SHUBH
+                                                                                                        //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190)); 
+                            }
+                        }
+                        else
+                        {
+                            //tonight - tomorrow
+                            if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));      //AMRIT
+                                                                                                     //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                        //CHAL
+                                                                                                    //dateDisplay.setBackgroundColor(Color.WHITE); 
+                            }
+
+                            else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));       //ROG
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128)); 
+                            }
+
+                            else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));    //KAAL
+                                                                                                   //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));    //LABH
+                                                                                                   //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));      //UDWEG
+                                                                                                 //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));         //SHUBH
+                                                                                                      //.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));    //AMRIT
+                                                                                                   //.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        temp = temp + 86400;
+
+                        if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));      //AMRIT
+                                                                                                 //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                        }
+
+                        else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.White);                        //CHAL
+                                                                                                //dateDisplay.setBackgroundColor(Color.WHITE); 
+                        }
+
+                        else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));       //ROG
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128)); 
+                        }
+
+                        else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));    //KAAL
+                                                                                               //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                        }
+
+                        else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));    //LABH
+                                                                                               //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                        }
+
+                        else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));      //UDWEG
+                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                        }
+
+                        else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));         //SHUBH
+                                                                                                  //.setBackgroundColor(Color.argb(255,0,165,190));
+                        }
+
+                        else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));    //AMRIT
+                                                                                               //.setBackgroundColor(Color.argb(255,175,230,255));
+                        }
+                    }
+                    break;
+                case 6:
+                    if (isYesNight == false)
+                    {
+                        if (temp < today_time[0])
+                        {
+                            // lastnight 
+                            temp = temp + 86400;
+                            if (temp >= lastnight_time[0] - 20 && temp < lastnight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));           //AMRIT
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= lastnight_time[1] - 20 && temp < lastnight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                              //CHAL
+                                                                                                          //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= lastnight_time[2] - 20 && temp < lastnight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));           //ROG
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= lastnight_time[3] - 20 && temp < lastnight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));           //KAAL
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= lastnight_time[4] - 20 && temp < lastnight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));              //LABH
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200)); 
+                            }
+
+                            else if (temp >= lastnight_time[5] - 20 && temp < lastnight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));              //UDWEG
+                                                                                                         //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= lastnight_time[6] - 20 && temp < lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));               //SHUBH
+                                                                                                            //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190)); 
+                            }
+
+                            else if (temp >= lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));             //AMRIT
+                                                                                                            //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+                        }
+                        else if (temp >= today_time[0] - 20 && temp < tonight_time[0] - 20)
+                        {
+                            // today - tonight
+                            if (temp >= today_time[0] - 20 && temp < today_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                            //CHAL
+                                                                                                        //dateDisplay.setBackgroundColor(Color.WHITE); 
+                            }
+
+                            else if (temp >= today_time[1] - 20 && temp < today_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));            //LABH
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= today_time[2] - 20 && temp < today_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));            //AMRIT 
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= today_time[3] - 20 && temp < today_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));        //KAAL
+                                                                                                       //.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= today_time[4] - 20 && temp < today_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));             //SHUBH
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= today_time[5] - 20 && temp < today_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));           //ROG
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= today_time[6] - 20 && temp < today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));               //UDWEG
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                         //CHAL
+                                                                                                     //dateDisplay.setBackgroundColor(Color.WHITE);
+                            }
+                        }
+                        else
+                        {
+                            //tonight - tomorrow
+
+                            if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));      //ROG
+                                                                                                     //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));       //KAAL
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));       //LABH
+                                                                                                      //.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));            //UDWEG
+                                                                                                       //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0)); 
+                            }
+
+                            else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));        //SHUBH
+                                                                                                     //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190)); 
+                            }
+
+                            else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));      //AMRIT
+                                                                                                     //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255)); 
+                            }
+
+                            else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                     //CHAL
+                                                                                                 //dateDisplay.setBackgroundColor(Color.WHITE); 
+                            }
+
+                            else if (temp >= tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));      //ROG
+                                                                                                     //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128)); 
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));      //ROG
+                                                                                                 //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                        }
+
+                        else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));       //KAAL
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                        }
+
+                        else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));       //LABH
+                                                                                                  //.setBackgroundColor(Color.argb(255,120,200,200));
+                        }
+
+                        else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));            //UDWEG
+                                                                                                   //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0)); 
+                        }
+
+                        else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));        //SHUBH
+                                                                                                 //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190)); 
+                        }
+
+                        else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));      //AMRIT
+                                                                                                 //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255)); 
+                        }
+
+                        else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.White);                     //CHAL
+                                                                                             //dateDisplay.setBackgroundColor(Color.WHITE); 
+                        }
+
+                        else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));      //ROG
+                                                                                                 //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128)); 
+
+                        }
+                    }
+                    break;
+                case 7:
+                    if (isYesNight == false)
+                    {
+                        if (temp < today_time[0])
+                        {
+                            // lastnight 
+                            temp = temp + 86400;
+                            if (temp >= lastnight_time[0] - 20 && temp < lastnight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));           //ROG
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+                            else if (temp >= lastnight_time[1] - 20 && temp < lastnight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));           //KAAL
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+                            else if (temp >= lastnight_time[2] - 20 && temp < lastnight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));            //LABH
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= lastnight_time[3] - 20 && temp < lastnight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));               //UDWEG
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= lastnight_time[4] - 20 && temp < lastnight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));                //SHUBH
+                                                                                                             //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= lastnight_time[5] - 20 && temp < lastnight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));          //AMRIT
+                                                                                                         //.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= lastnight_time[6] - 20 && temp < lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                              //CHAL
+                                                                                                          //dateDisplay.setBackgroundColor(Color.WHITE);  
+                            }
+
+                            else if (temp >= lastnight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));             //ROG
+                                                                                                            //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128)); 
+                            }
+                        }
+                        else if (temp >= today_time[0] - 20 && temp < tonight_time[0] - 20)
+                        {
+                            // today - tonight
+                            if (temp >= today_time[0] - 20 && temp < today_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));            //KAAL
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= today_time[1] - 20 && temp < today_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));            //SHUBH
+                                                                                                         //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= today_time[2] - 20 && temp < today_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));            //ROG 
+                                                                                                           //dateDisplay.setBackgroundColor(Color.argb(255,255,128,128)); 
+                            }
+
+                            else if (temp >= today_time[3] - 20 && temp < today_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));           //UDWEG
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= today_time[4] - 20 && temp < today_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                          //CHAL
+                                                                                                      //dateDisplay.setBackgroundColor(Color.WHITE); 
+                            }
+
+                            else if (temp >= today_time[5] - 20 && temp < today_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));           //LABH
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200)); 
+                            }
+
+                            else if (temp >= today_time[6] - 20 && temp < today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));             //AMRIT
+                                                                                                            //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= today_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));           //KAAL
+                                                                                                          //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+                        }
+                        else
+                        {
+                            //tonight - tomorrow
+
+                            if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));      //LABH
+                                                                                                     //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+
+                            else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));           //UDWEG
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                            }
+
+                            else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));         //SHUBH
+                                                                                                      //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                            }
+
+                            else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));         //AMRIT
+                                                                                                        //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                            }
+
+                            else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.White);                        //CHAL
+                                                                                                    //.setBackgroundColor(Color.WHITE);
+                            }
+
+                            else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));         //ROG
+                                                                                                        //.setBackgroundColor(Color.argb(255,255,128,128));
+                            }
+
+                            else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));         //KAAL
+                                                                                                        //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                            }
+
+                            else if (temp >= tonight_time[7] - 20)
+                            {
+                                timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));         //LABH
+                                                                                                        //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        temp = temp + 86400;
+                        if (temp >= tonight_time[0] - 20 && temp < tonight_time[1] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));      //LABH
+                                                                                                 //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                        }
+
+                        else if (temp >= tonight_time[1] - 20 && temp < tonight_time[2] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 0, 0));           //UDWEG
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,255,0,0));
+                        }
+
+                        else if (temp >= tonight_time[2] - 20 && temp < tonight_time[3] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 0, 165, 190));         //SHUBH
+                                                                                                  //dateDisplay.setBackgroundColor(Color.argb(255,0,165,190));
+                        }
+
+                        else if (temp >= tonight_time[3] - 20 && temp < tonight_time[4] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 175, 230, 255));         //AMRIT
+                                                                                                    //dateDisplay.setBackgroundColor(Color.argb(255,175,230,255));
+                        }
+
+                        else if (temp >= tonight_time[4] - 20 && temp < tonight_time[5] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.White);                        //CHAL
+                                                                                                //.setBackgroundColor(Color.WHITE);
+                        }
+
+                        else if (temp >= tonight_time[5] - 20 && temp < tonight_time[6] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 128, 128));         //ROG
+                                                                                                    //.setBackgroundColor(Color.argb(255,255,128,128));
+                        }
+
+                        else if (temp >= tonight_time[6] - 20 && temp < tonight_time[7] - 20)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 255, 190, 190));         //KAAL
+                                                                                                    //dateDisplay.setBackgroundColor(Color.argb(255,255,190,190));
+                        }
+
+                        else if (temp >= tonight_time[7] - 20 && temp <= tomorrow_time[0] + 86400)
+                        {
+                            timeDisplay.SetBackgroundColor(Color.Argb(255, 120, 200, 200));         //LABH
+                                                                                                    //dateDisplay.setBackgroundColor(Color.argb(255,120,200,200));
+                        }
+                    }
+                    break;
+                default:break;
+            }
         }
     }
 }
