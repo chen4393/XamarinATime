@@ -1,7 +1,9 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Util;
+using Android.Views;
 using Android.Widget;
 using Java.Text;
 using Java.Util;
@@ -89,7 +91,7 @@ namespace XamarinATime
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            this.RequestWindowFeature(WindowFeatures.NoTitle);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
@@ -130,6 +132,39 @@ namespace XamarinATime
             //Log.Warn(TAG, today_year + " " + today_month + " " + today_day);
             //Log.Warn(TAG, day_of_week.ToString());
             SetSequence(day_of_week);
+
+            Button about = FindViewById<Button>(Resource.Id.About);
+            about.Click += delegate
+            {
+                FragmentManager fm = FragmentManager;
+                AboutFragment aboutFragment = new AboutFragment();
+                aboutFragment.Show(fm, "123");
+            };
+
+            Button configuration = FindViewById<Button>(Resource.Id.Configuration);
+            configuration.Click += delegate
+            {
+                Context context = ApplicationContext;
+                string text = "Configure the location and date";
+                ToastLength duration = ToastLength.Short;
+                Toast toast = Toast.MakeText(context, text, duration);
+                toast.Show();
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.SetTitle("Configure Ausp Time");
+                alert.SetMessage("Alert Dialog");
+                alert.SetPositiveButton("Good", (senderAlert, args) => {
+                    //change value write your own set of instructions
+                    //you can also create an event for the same in xamarin
+                    //instead of writing things here
+                });
+                alert.SetNegativeButton("Not doing great", (senderAlert, args) => {
+                    //perform your own task for this conditional button click
+                });
+                RunOnUiThread(() => {
+                    alert.Show();
+                });
+            };
         }
 
         private void InitPanel()
@@ -208,7 +243,7 @@ namespace XamarinATime
             int temp_1 = (86400 - sunsetTime_yesterdayDefault + sunriseTime_todayDefault) / 8;   // lastnight
             int temp_2 = (sunsetTime_todayDefault - sunriseTime_todayDefault) / 8;               // today
             int temp_3 = (86400 - sunsetTime_todayDefault + sunriseTime_tomorrowDefault) / 8;    // tonight
-            int temp_4 = (sunsetTime_tomorrowDefault - sunriseTime_tomorrowDefault) / 8;         // 
+            int temp_4 = (sunsetTime_tomorrowDefault - sunriseTime_tomorrowDefault) / 8;         // tomorrow
 
             for (int i = 0; i < 8; i++)
             {
