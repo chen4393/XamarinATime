@@ -136,7 +136,7 @@ namespace XamarinATime
             //Log.Warn(TAG, today_year + " " + today_month + " " + today_day);
             //Log.Warn(TAG, day_of_week.ToString());
             SetSequence(day_of_week);
-
+            DrawMaker();
             Button about = FindViewById<Button>(Resource.Id.About);
             about.Click += delegate
             {
