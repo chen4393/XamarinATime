@@ -51,7 +51,10 @@ namespace XamarinATime
 			public const int btn_grey = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Icon = 2130837506;
+			public const int btn_white = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int Icon = 2130837507;
 			
 			static Drawable()
 			{
@@ -66,32 +69,80 @@ namespace XamarinATime
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060013
-			public const int About = 2131099667;
+			// aapt resource value: 0x7f060026
+			public const int About = 2131099686;
 			
-			// aapt resource value: 0x7f060012
-			public const int Configuration = 2131099666;
+			// aapt resource value: 0x7f060025
+			public const int Configuration = 2131099685;
 			
-			// aapt resource value: 0x7f060016
-			public const int ScrollView01 = 2131099670;
+			// aapt resource value: 0x7f060029
+			public const int ScrollView01 = 2131099689;
 			
 			// aapt resource value: 0x7f060000
 			public const int ScrollView_about = 2131099648;
 			
+			// aapt resource value: 0x7f060012
+			public const int ScrollView_configuration = 2131099666;
+			
+			// aapt resource value: 0x7f060024
+			public const int about_atime = 2131099684;
+			
 			// aapt resource value: 0x7f060010
 			public const int button_2 = 2131099664;
 			
-			// aapt resource value: 0x7f060015
-			public const int configure_text = 2131099669;
+			// aapt resource value: 0x7f060011
+			public const int configuration_layout = 2131099665;
+			
+			// aapt resource value: 0x7f060028
+			public const int configure_text = 2131099688;
+			
+			// aapt resource value: 0x7f060020
+			public const int current_date = 2131099680;
+			
+			// aapt resource value: 0x7f060021
+			public const int datePicker_1 = 2131099681;
+			
+			// aapt resource value: 0x7f060022
+			public const int help = 2131099682;
+			
+			// aapt resource value: 0x7f060017
+			public const int input_latitude = 2131099671;
+			
+			// aapt resource value: 0x7f06001a
+			public const int input_longitude = 2131099674;
+			
+			// aapt resource value: 0x7f06001d
+			public const int input_offset = 2131099677;
 			
 			// aapt resource value: 0x7f060001
 			public const int layout_root = 2131099649;
 			
-			// aapt resource value: 0x7f060011
-			public const int linearLayout1 = 2131099665;
+			// aapt resource value: 0x7f060015
+			public const int linearLayout1 = 2131099669;
 			
-			// aapt resource value: 0x7f060017
-			public const int linear_child = 2131099671;
+			// aapt resource value: 0x7f060018
+			public const int linearLayout2 = 2131099672;
+			
+			// aapt resource value: 0x7f06001b
+			public const int linearLayout3 = 2131099675;
+			
+			// aapt resource value: 0x7f060013
+			public const int linearLayout_bottombutton = 2131099667;
+			
+			// aapt resource value: 0x7f06001e
+			public const int linearLayout_middlebutton = 2131099678;
+			
+			// aapt resource value: 0x7f06002a
+			public const int linear_child = 2131099690;
+			
+			// aapt resource value: 0x7f06001f
+			public const int reset = 2131099679;
+			
+			// aapt resource value: 0x7f060014
+			public const int scrollable_layout = 2131099668;
+			
+			// aapt resource value: 0x7f060023
+			public const int submit = 2131099683;
 			
 			// aapt resource value: 0x7f060002
 			public const int text_1 = 2131099650;
@@ -135,128 +186,137 @@ namespace XamarinATime
 			// aapt resource value: 0x7f06000a
 			public const int text_9 = 2131099658;
 			
-			// aapt resource value: 0x7f060037
-			public const int text_belowright_1 = 2131099703;
+			// aapt resource value: 0x7f06004a
+			public const int text_belowright_1 = 2131099722;
 			
-			// aapt resource value: 0x7f060038
-			public const int text_belowright_2 = 2131099704;
+			// aapt resource value: 0x7f06004b
+			public const int text_belowright_2 = 2131099723;
 			
-			// aapt resource value: 0x7f060039
-			public const int text_belowright_3 = 2131099705;
+			// aapt resource value: 0x7f06004c
+			public const int text_belowright_3 = 2131099724;
 			
-			// aapt resource value: 0x7f06003a
-			public const int text_belowright_4 = 2131099706;
+			// aapt resource value: 0x7f06004d
+			public const int text_belowright_4 = 2131099725;
 			
-			// aapt resource value: 0x7f06003b
-			public const int text_belowright_5 = 2131099707;
+			// aapt resource value: 0x7f06004e
+			public const int text_belowright_5 = 2131099726;
 			
-			// aapt resource value: 0x7f06003c
-			public const int text_belowright_6 = 2131099708;
+			// aapt resource value: 0x7f06004f
+			public const int text_belowright_6 = 2131099727;
 			
-			// aapt resource value: 0x7f06003d
-			public const int text_belowright_7 = 2131099709;
+			// aapt resource value: 0x7f060050
+			public const int text_belowright_7 = 2131099728;
 			
-			// aapt resource value: 0x7f06003e
-			public const int text_belowright_8 = 2131099710;
+			// aapt resource value: 0x7f060051
+			public const int text_belowright_8 = 2131099729;
 			
-			// aapt resource value: 0x7f06003f
-			public const int text_belowright_9 = 2131099711;
-			
-			// aapt resource value: 0x7f060019
-			public const int text_lastnight_1 = 2131099673;
-			
-			// aapt resource value: 0x7f06001a
-			public const int text_lastnight_2 = 2131099674;
-			
-			// aapt resource value: 0x7f06001b
-			public const int text_lastnight_3 = 2131099675;
-			
-			// aapt resource value: 0x7f06001c
-			public const int text_lastnight_4 = 2131099676;
-			
-			// aapt resource value: 0x7f06001d
-			public const int text_lastnight_5 = 2131099677;
-			
-			// aapt resource value: 0x7f06001e
-			public const int text_lastnight_6 = 2131099678;
-			
-			// aapt resource value: 0x7f06001f
-			public const int text_lastnight_7 = 2131099679;
-			
-			// aapt resource value: 0x7f060020
-			public const int text_lastnight_8 = 2131099680;
-			
-			// aapt resource value: 0x7f060021
-			public const int text_lastnight_9 = 2131099681;
-			
-			// aapt resource value: 0x7f060023
-			public const int text_today_1 = 2131099683;
-			
-			// aapt resource value: 0x7f060024
-			public const int text_today_2 = 2131099684;
-			
-			// aapt resource value: 0x7f060025
-			public const int text_today_3 = 2131099685;
-			
-			// aapt resource value: 0x7f060026
-			public const int text_today_4 = 2131099686;
-			
-			// aapt resource value: 0x7f060027
-			public const int text_today_5 = 2131099687;
-			
-			// aapt resource value: 0x7f060028
-			public const int text_today_6 = 2131099688;
-			
-			// aapt resource value: 0x7f060029
-			public const int text_today_7 = 2131099689;
-			
-			// aapt resource value: 0x7f06002a
-			public const int text_today_8 = 2131099690;
-			
-			// aapt resource value: 0x7f06002b
-			public const int text_today_9 = 2131099691;
-			
-			// aapt resource value: 0x7f06002d
-			public const int text_tonight_1 = 2131099693;
-			
-			// aapt resource value: 0x7f06002e
-			public const int text_tonight_2 = 2131099694;
-			
-			// aapt resource value: 0x7f06002f
-			public const int text_tonight_3 = 2131099695;
-			
-			// aapt resource value: 0x7f060030
-			public const int text_tonight_4 = 2131099696;
-			
-			// aapt resource value: 0x7f060031
-			public const int text_tonight_5 = 2131099697;
-			
-			// aapt resource value: 0x7f060032
-			public const int text_tonight_6 = 2131099698;
-			
-			// aapt resource value: 0x7f060033
-			public const int text_tonight_7 = 2131099699;
-			
-			// aapt resource value: 0x7f060034
-			public const int text_tonight_8 = 2131099700;
-			
-			// aapt resource value: 0x7f060035
-			public const int text_tonight_9 = 2131099701;
-			
-			// aapt resource value: 0x7f060014
-			public const int timeDisplay = 2131099668;
-			
-			// aapt resource value: 0x7f060022
-			public const int widget32 = 2131099682;
+			// aapt resource value: 0x7f060052
+			public const int text_belowright_9 = 2131099730;
 			
 			// aapt resource value: 0x7f06002c
-			public const int widget33 = 2131099692;
+			public const int text_lastnight_1 = 2131099692;
 			
-			// aapt resource value: 0x7f060018
-			public const int widget34 = 2131099672;
+			// aapt resource value: 0x7f06002d
+			public const int text_lastnight_2 = 2131099693;
+			
+			// aapt resource value: 0x7f06002e
+			public const int text_lastnight_3 = 2131099694;
+			
+			// aapt resource value: 0x7f06002f
+			public const int text_lastnight_4 = 2131099695;
+			
+			// aapt resource value: 0x7f060030
+			public const int text_lastnight_5 = 2131099696;
+			
+			// aapt resource value: 0x7f060031
+			public const int text_lastnight_6 = 2131099697;
+			
+			// aapt resource value: 0x7f060032
+			public const int text_lastnight_7 = 2131099698;
+			
+			// aapt resource value: 0x7f060033
+			public const int text_lastnight_8 = 2131099699;
+			
+			// aapt resource value: 0x7f060034
+			public const int text_lastnight_9 = 2131099700;
+			
+			// aapt resource value: 0x7f060016
+			public const int text_latitude = 2131099670;
+			
+			// aapt resource value: 0x7f060019
+			public const int text_longitude = 2131099673;
+			
+			// aapt resource value: 0x7f06001c
+			public const int text_timeOffset = 2131099676;
 			
 			// aapt resource value: 0x7f060036
-			public const int widget35 = 2131099702;
+			public const int text_today_1 = 2131099702;
+			
+			// aapt resource value: 0x7f060037
+			public const int text_today_2 = 2131099703;
+			
+			// aapt resource value: 0x7f060038
+			public const int text_today_3 = 2131099704;
+			
+			// aapt resource value: 0x7f060039
+			public const int text_today_4 = 2131099705;
+			
+			// aapt resource value: 0x7f06003a
+			public const int text_today_5 = 2131099706;
+			
+			// aapt resource value: 0x7f06003b
+			public const int text_today_6 = 2131099707;
+			
+			// aapt resource value: 0x7f06003c
+			public const int text_today_7 = 2131099708;
+			
+			// aapt resource value: 0x7f06003d
+			public const int text_today_8 = 2131099709;
+			
+			// aapt resource value: 0x7f06003e
+			public const int text_today_9 = 2131099710;
+			
+			// aapt resource value: 0x7f060040
+			public const int text_tonight_1 = 2131099712;
+			
+			// aapt resource value: 0x7f060041
+			public const int text_tonight_2 = 2131099713;
+			
+			// aapt resource value: 0x7f060042
+			public const int text_tonight_3 = 2131099714;
+			
+			// aapt resource value: 0x7f060043
+			public const int text_tonight_4 = 2131099715;
+			
+			// aapt resource value: 0x7f060044
+			public const int text_tonight_5 = 2131099716;
+			
+			// aapt resource value: 0x7f060045
+			public const int text_tonight_6 = 2131099717;
+			
+			// aapt resource value: 0x7f060046
+			public const int text_tonight_7 = 2131099718;
+			
+			// aapt resource value: 0x7f060047
+			public const int text_tonight_8 = 2131099719;
+			
+			// aapt resource value: 0x7f060048
+			public const int text_tonight_9 = 2131099720;
+			
+			// aapt resource value: 0x7f060027
+			public const int timeDisplay = 2131099687;
+			
+			// aapt resource value: 0x7f060035
+			public const int widget32 = 2131099701;
+			
+			// aapt resource value: 0x7f06003f
+			public const int widget33 = 2131099711;
+			
+			// aapt resource value: 0x7f06002b
+			public const int widget34 = 2131099691;
+			
+			// aapt resource value: 0x7f060049
+			public const int widget35 = 2131099721;
 			
 			static Id()
 			{
@@ -275,7 +335,10 @@ namespace XamarinATime
 			public const int About = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int Main = 2130903041;
+			public const int configuration = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Main = 2130903042;
 			
 			static Layout()
 			{
@@ -310,10 +373,28 @@ namespace XamarinATime
 		{
 			
 			// aapt resource value: 0x7f050000
-			public const int ButtonConfiguration = 2131034112;
+			public const int AppTheme = 2131034112;
+			
+			// aapt resource value: 0x7f050004
+			public const int ButtonCD = 2131034116;
+			
+			// aapt resource value: 0x7f050003
+			public const int ButtonCL = 2131034115;
+			
+			// aapt resource value: 0x7f050007
+			public const int ButtonConfiguration = 2131034119;
+			
+			// aapt resource value: 0x7f050005
+			public const int ButtonHelp = 2131034117;
+			
+			// aapt resource value: 0x7f050006
+			public const int ButtonOkay = 2131034118;
 			
 			// aapt resource value: 0x7f050001
-			public const int ButtonOkay = 2131034113;
+			public const int ButtonReset = 2131034113;
+			
+			// aapt resource value: 0x7f050002
+			public const int ButtonSubmit = 2131034114;
 			
 			static Style()
 			{
