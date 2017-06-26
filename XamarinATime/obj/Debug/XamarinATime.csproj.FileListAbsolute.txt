@@ -19,3 +19,4 @@ C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\o
 C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\XamarinATime.csprojResolveAssemblyReference.cache
 C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\bin\Debug\XamarinATime.dll.mdb
 C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\android\assets\XamarinATime.dll.mdb
+C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\res\layout\findmylocation.xml

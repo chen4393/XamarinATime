@@ -109,16 +109,20 @@
 				android:orientation="horizontal" >
 
 			<Button
-				android:id="@+id/reset"
-				android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="0.5"
-				android:background="@drawable/btn_white" style="@style/ButtonCL"
-				android:text="Current Location"  android:onClick="reset"/>
+				android:id="@+id/current_loc"
+				android:layout_width="fill_parent" 
+        android:layout_height="wrap_content" 
+        android:layout_weight="0.5"
+				android:background="@drawable/btn_white"
+        style="@style/ButtonCL"
+				android:text="Current Location" />
 
 			<Button
 				android:id="@+id/current_date"
 				android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="0.5"
-				android:background="@drawable/btn_white" style="@style/ButtonCD"
-				android:text="Current Date" android:onClick="resetDate"/>
+				android:background="@drawable/btn_white" 
+        style="@style/ButtonCD"
+				android:text="Current Date" />
 
 			</LinearLayout>
 
@@ -132,14 +136,13 @@
 
 			<!-- Button "Find My Location" -->
 			<Button
-				android:id="@+id/help"
+				android:id="@+id/findMyLoc"
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
 				android:layout_below="@+id/datePicker_1"
 				android:background="@drawable/btn_white"
 				style="@style/ButtonHelp"
-				android:text="Find My Location"
-				android:onClick="helppage"/>
+				android:text="Find My Location" />
 
 		</RelativeLayout>
 
@@ -161,8 +164,7 @@
 			android:layout_weight="0.5"
 			android:background="@drawable/btn_blue"
 			style="@style/ButtonConfiguration"
-			android:text="Done"
-			android:onClick="sendData"/>
+			android:text="Done" />
 
 		<!-- "About ATime" -->
 		<Button
@@ -172,8 +174,7 @@
 			android:layout_weight="0.5"
 			android:background="@drawable/btn_blue"
 			style="@style/ButtonConfiguration"
-			android:text="About ATime"
-			android:onClick="openAboutPage"/>
+			android:text="About ATime" />
 	</LinearLayout>
       		
 </RelativeLayout>

@@ -5,6 +5,7 @@ using Android.Locations;
 using Java.Util;
 using Android.Widget;
 using Android.Views.InputMethods;
+using Java.Lang;
 
 namespace XamarinATime
 {
@@ -27,15 +28,29 @@ namespace XamarinATime
         private string message_lon;
         private string message_off;
 
+        private bool afterConfig;
         private bool wantToday;
+
+        private int userYear;
+        private int userMonth;
+        private int userDay;
 
         private EditText inputLatitude;
         private EditText inputLongitude;
         private EditText inputOffset;
 
         private Button submit;
-        private Button reset;
+        private Button currentLocation;
         private Button currentDate;
+        private Button findMyLocation;
+        private Button about;
+
+        private string message_year;
+        private string message_month;
+        private string message_day;
+        private string message_wantToday;
+        private string speech_Available;
+        private string message_config;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -82,10 +97,10 @@ namespace XamarinATime
             message_lat = settings.GetString("myLatitude", currentLatitude.ToString());
             message_lon = settings.GetString("myLongitude", currentLongitude.ToString());
             message_off = settings.GetString("myOffset", offsetFromUtc.ToString());
-            init();
+            Init();
         }
 
-        public void init()
+        private void Init()
         {
             wantToday = true;
             inputLatitude = (EditText)FindViewById(Resource.Id.input_latitude);
@@ -101,9 +116,66 @@ namespace XamarinATime
             inputOffset.ImeOptions = ImeAction.Done;
 
             submit = (Button)FindViewById(Resource.Id.submit);
-            reset = (Button)FindViewById(Resource.Id.reset);
+
+            currentLocation = (Button)FindViewById(Resource.Id.current_loc);
+            currentLocation.Click += delegate
+            {
+                inputLatitude.Text = ("" + currentLatitude);
+                inputLongitude.Text = ("" + currentLongitude);
+                inputOffset.Text = ("" + offsetFromUtc);
+            };
             currentDate = (Button)FindViewById(Resource.Id.current_date);
+            currentDate.Click += delegate
+            {
+                datepicker.UpdateDate(current_cal.Get(CalendarField.Year),
+                current_cal.Get(CalendarField.Month), current_cal.Get(CalendarField.DayOfMonth));
+            };
+            findMyLocation = FindViewById<Button>(Resource.Id.findMyLoc);
+            findMyLocation.Click += delegate
+            {
+                FragmentManager fm = FragmentManager;
+                FindMyLocation findMyLocation  = new FindMyLocation();
+                findMyLocation.Show(fm, "123");
+            };
+            about = FindViewById<Button>(Resource.Id.about_atime);
+            about.Click += delegate
+            {
+                FragmentManager fm = FragmentManager;
+                AboutFragment aboutFragment = new AboutFragment();
+                aboutFragment.Show(fm, "123");
+            };
         }
+
+        private void SendData()
+        {
+            afterConfig = true;
+
+            userYear = datepicker.Year;
+            userMonth = datepicker.Month;
+            userDay = datepicker.DayOfMonth;
+
+            message_lat = inputLatitude.Text.ToString();
+            message_lon = inputLongitude.Text.ToString();
+            message_off = inputOffset.Text.ToString();
+            message_year = Integer.ToString(userYear);
+            message_month = Integer.ToString(userMonth);
+            message_day = Integer.ToString(userDay);
+
+            if (userYear == (current_cal.Get(CalendarField.Year)) && 
+                userMonth == (current_cal.Get(CalendarField.Month)) && 
+                userDay == (current_cal.Get(CalendarField.DayOfMonth)))
+            {
+                wantToday = true;
+            }
+            else
+            {
+                wantToday = false;
+            }
+
+            message_wantToday = Boolean.ToString(wantToday);
+            message_config = Boolean.ToString(afterConfig);
+        }
+   
     }
 
 }

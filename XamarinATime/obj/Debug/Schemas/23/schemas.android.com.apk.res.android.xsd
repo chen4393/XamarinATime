@@ -2,7 +2,7 @@
 <xs:schema xmlns:android="http://schemas.android.com/apk/res/android" attributeFormDefault="qualified" targetNamespace="http://schemas.android.com/apk/res/android" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>v23</xs:documentation>
-    <xs:documentation>6/23/2017 4:35:26 PM</xs:documentation>
+    <xs:documentation>6/26/2017 12:57:10 PM</xs:documentation>
   </xs:annotation>
   <xs:attribute name="accessibilityLiveRegion">
     <xs:annotation>
@@ -16853,13 +16853,15 @@
             <xs:enumeration value="@+id/checkBox1" />
             <xs:enumeration value="@id/About" />
             <xs:enumeration value="@id/about_atime" />
+            <xs:enumeration value="@id/button_1" />
             <xs:enumeration value="@id/button_2" />
             <xs:enumeration value="@id/Configuration" />
             <xs:enumeration value="@id/configuration_layout" />
             <xs:enumeration value="@id/configure_text" />
             <xs:enumeration value="@id/current_date" />
+            <xs:enumeration value="@id/current_loc" />
             <xs:enumeration value="@id/datePicker_1" />
-            <xs:enumeration value="@id/help" />
+            <xs:enumeration value="@id/findMyLoc" />
             <xs:enumeration value="@id/input_latitude" />
             <xs:enumeration value="@id/input_longitude" />
             <xs:enumeration value="@id/input_offset" />
@@ -16870,7 +16872,6 @@
             <xs:enumeration value="@id/linearLayout1" />
             <xs:enumeration value="@id/linearLayout2" />
             <xs:enumeration value="@id/linearLayout3" />
-            <xs:enumeration value="@id/reset" />
             <xs:enumeration value="@id/scrollable_layout" />
             <xs:enumeration value="@id/ScrollView_about" />
             <xs:enumeration value="@id/ScrollView_configuration" />
@@ -16899,6 +16900,10 @@
             <xs:enumeration value="@id/text_belowright_7" />
             <xs:enumeration value="@id/text_belowright_8" />
             <xs:enumeration value="@id/text_belowright_9" />
+            <xs:enumeration value="@id/text_detail3" />
+            <xs:enumeration value="@id/text_detail4" />
+            <xs:enumeration value="@id/text_detail5" />
+            <xs:enumeration value="@id/text_first" />
             <xs:enumeration value="@id/text_lastnight_1" />
             <xs:enumeration value="@id/text_lastnight_2" />
             <xs:enumeration value="@id/text_lastnight_3" />
@@ -16910,6 +16915,7 @@
             <xs:enumeration value="@id/text_lastnight_9" />
             <xs:enumeration value="@id/text_latitude" />
             <xs:enumeration value="@id/text_longitude" />
+            <xs:enumeration value="@id/text_second" />
             <xs:enumeration value="@id/text_timeOffset" />
             <xs:enumeration value="@id/text_today_1" />
             <xs:enumeration value="@id/text_today_2" />

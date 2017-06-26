@@ -2,7 +2,7 @@
 <xs:schema xmlns:tools="http://schemas.android.com/tools" attributeFormDefault="qualified" targetNamespace="http://schemas.android.com/tools" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>v23</xs:documentation>
-    <xs:documentation>6/23/2017 4:35:26 PM</xs:documentation>
+    <xs:documentation>6/26/2017 12:57:10 PM</xs:documentation>
   </xs:annotation>
   <xs:attribute name="layout">
     <xs:annotation>
@@ -14,6 +14,7 @@
           <xs:restriction base="xs:string">
             <xs:enumeration value="@layout/about" />
             <xs:enumeration value="@layout/configuration" />
+            <xs:enumeration value="@layout/findmylocation" />
             <xs:enumeration value="@layout/main" />
             <xs:enumeration value="@android:layout/activity_list_item" />
             <xs:enumeration value="@android:layout/browser_link_context_header" />
@@ -64,6 +65,7 @@
           <xs:restriction base="xs:string">
             <xs:enumeration value="@layout/about" />
             <xs:enumeration value="@layout/configuration" />
+            <xs:enumeration value="@layout/findmylocation" />
             <xs:enumeration value="@layout/main" />
             <xs:enumeration value="@android:layout/activity_list_item" />
             <xs:enumeration value="@android:layout/browser_link_context_header" />
@@ -114,6 +116,7 @@
           <xs:restriction base="xs:string">
             <xs:enumeration value="@layout/about" />
             <xs:enumeration value="@layout/configuration" />
+            <xs:enumeration value="@layout/findmylocation" />
             <xs:enumeration value="@layout/main" />
             <xs:enumeration value="@android:layout/activity_list_item" />
             <xs:enumeration value="@android:layout/browser_link_context_header" />
@@ -164,6 +167,7 @@
           <xs:restriction base="xs:string">
             <xs:enumeration value="@layout/about" />
             <xs:enumeration value="@layout/configuration" />
+            <xs:enumeration value="@layout/findmylocation" />
             <xs:enumeration value="@layout/main" />
             <xs:enumeration value="@android:layout/activity_list_item" />
             <xs:enumeration value="@android:layout/browser_link_context_header" />

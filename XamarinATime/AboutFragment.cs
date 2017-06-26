@@ -49,7 +49,7 @@ namespace XamarinATime
             detail_1.Text = "Ace Auspicious Time";
             detail_2.Text = "Version 2.0";
             detail_3.Text = "Copyright \u00A9 2017";
-            detail_4.Text = Html.FromHtml("<a href=\"http://pyrahealth.com/component/content/article/35-pyrahealth-general-topic/153-ace-auspicious-time\">Pyrahealth.com</a> ").ToString();
+            detail_4.TextFormatted = Html.FromHtml("<a href=\"http://pyrahealth.com/component/content/article/35-pyrahealth-general-topic/153-ace-auspicious-time\">Pyrahealth.com</a> ");
             detail_4.MovementMethod = LinkMovementMethod.Instance;
             detail_5.Text = ("Ace Auspicious Time calculates beneficial times for activities at your location. Using Indian Vedic astrology, the day and night's eight Choghadiya Muhurtas are calculated.");
             detail_6.Text = ("The Choghadiya time intervals have a nature of being good, neutral, or bad for starting an activity. Your location and time zone are used to calculate your sunrise and sunset.");
