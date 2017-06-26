@@ -148,6 +148,7 @@ namespace XamarinATime
             Button configuration = FindViewById<Button>(Resource.Id.Configuration);
             configuration.Click += delegate
             {
+                /*
                 Context context = ApplicationContext;
                 string text = "Configure the location and date";
                 ToastLength duration = ToastLength.Short;
@@ -168,6 +169,10 @@ namespace XamarinATime
                 RunOnUiThread(() => {
                     alert.Show();
                 });
+                */
+                Intent intent = new Intent(this, typeof(ConfigurationActivity));
+                StartActivity(intent);
+                Finish();
             };
         }
 
