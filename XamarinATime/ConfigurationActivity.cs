@@ -115,8 +115,6 @@ namespace XamarinATime
             inputOffset.Text = ("" + message_off);
             inputOffset.ImeOptions = ImeAction.Done;
 
-            submit = (Button)FindViewById(Resource.Id.submit);
-
             currentLocation = (Button)FindViewById(Resource.Id.current_loc);
             currentLocation.Click += delegate
             {
@@ -143,6 +141,14 @@ namespace XamarinATime
                 FragmentManager fm = FragmentManager;
                 AboutFragment aboutFragment = new AboutFragment();
                 aboutFragment.Show(fm, "123");
+            };
+            submit = (Button)FindViewById(Resource.Id.submit);
+            submit.Click += delegate
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                intent.SetFlags(ActivityFlags.ClearTop);
+                StartActivity(intent);
+                SendData();
             };
         }
 
