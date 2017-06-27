@@ -186,7 +186,11 @@ namespace XamarinATime
             
             CalculateTimeSequence();
             SetSequence(day_of_week);
-            DrawMaker();
+            if (wantToday)
+            {
+                DrawMaker();
+            }
+            
             Button about = FindViewById<Button>(Resource.Id.About);
             about.Click += delegate
             {
