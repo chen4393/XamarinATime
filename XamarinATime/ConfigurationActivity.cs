@@ -13,6 +13,15 @@ namespace XamarinATime
     public class ConfigurationActivity : Activity
     {
         private const string PREFS_NAME = "MyPrefsFile";
+        public const string EXTRA_MESSAGE = "ATimeActivity";
+        public const string EXTRA_MESSAGE_1 = "ATimeActivity_1";
+        public const string EXTRA_MESSAGE_2 = "ATimeActivity_2";
+        public const string EXTRA_MESSAGE_3 = "ATimeActivity_3";
+        public const string EXTRA_MESSAGE_4 = "ATimeActivity_4";
+        public const string EXTRA_MESSAGE_5 = "ATimeActivity_5";
+        public const string EXTRA_MESSAGE_6 = "ATimeActivity_6";
+        public const string EXTRA_MESSAGE_7 = "ATimeActivity_7";
+        public const string EXTRA_MESSAGE_8 = "ATimeActivity_8";
 
         private LocationManager locationManager;
         private string provider;
@@ -145,10 +154,8 @@ namespace XamarinATime
             submit = (Button)FindViewById(Resource.Id.submit);
             submit.Click += delegate
             {
-                Intent intent = new Intent(this, typeof(MainActivity));
-                intent.SetFlags(ActivityFlags.ClearTop);
-                StartActivity(intent);
                 SendData();
+                
             };
         }
 
@@ -180,6 +187,116 @@ namespace XamarinATime
 
             message_wantToday = Boolean.ToString(wantToday);
             message_config = Boolean.ToString(afterConfig);
+            Intent intent = new Intent(this, typeof(MainActivity));
+            //intent.SetFlags(ActivityFlags.ClearTop);
+            bool result = CheckInput(message_lat, message_lon, message_off);
+            if (result)
+            {
+                intent.PutExtra(EXTRA_MESSAGE, message_lat.ToString());
+                intent.PutExtra(EXTRA_MESSAGE_1, message_lon.ToString());
+                intent.PutExtra(EXTRA_MESSAGE_2, message_off.ToString());
+                intent.PutExtra(EXTRA_MESSAGE_3, message_year.ToString());
+                intent.PutExtra(EXTRA_MESSAGE_4, message_month.ToString());
+                intent.PutExtra(EXTRA_MESSAGE_5, message_day.ToString());
+                intent.PutExtra(EXTRA_MESSAGE_6, message_config.ToString());
+                intent.PutExtra(EXTRA_MESSAGE_7, message_wantToday.ToString());
+                StartActivity(intent);
+                Finish();
+            }
+        }
+
+        private bool CheckInput(string latitude, string longitude, string offset)
+        {
+            bool result = true;
+            if (latitude == null || longitude == null)
+            {
+                result = false;
+                Toast.MakeText(ApplicationContext,
+                    "Please input non empty number which is in the range of -90 to 90 for latitude and -180 to 180 for logitute",
+                    ToastLength.Long).Show();
+                
+            }
+            if (latitude.Equals("") || latitude.Equals("-") || latitude.Equals(".") ||
+                    latitude.Equals(".-") || latitude.Equals("-."))
+            {
+                result = false;
+                Toast.MakeText(ApplicationContext,
+                    "Please input a valid latitude number which is in the range of -90 to 90",
+                    ToastLength.Long).Show();
+            }
+            else
+            {
+                double lat = Double.ParseDouble(latitude);
+                if (lat > 90.0 || lat < -90.0)
+                {
+                    Toast.MakeText(ApplicationContext,
+                        "Please input a valid latitude number which is in the range of -90 to 90",
+                        ToastLength.Long).Show();
+                    result = false;
+                }
+            }
+            if (longitude.Equals("") || longitude.Equals("-") || longitude.Equals(".") ||
+                    longitude.Equals(".-") || longitude.Equals("-."))
+            {
+                result = false;
+                Toast.MakeText(ApplicationContext,
+                    "Please input a valid longitude number which is in the range of -180 to 180",
+                    ToastLength.Long).Show();
+            }
+            else
+            {
+                double lon = Double.ParseDouble(longitude);
+                if (lon > 180.0 || lon < -180.0)
+                {
+                    Toast.MakeText(ApplicationContext,
+                        "Please input a valid longitude number which is in the range of -180 to 180",
+                        ToastLength.Long).Show();
+                    result = false;
+                }
+            }
+            if (offset.Equals("") || offset.Equals("-") || offset.Equals(".") ||
+                    offset.Equals(".-") || offset.Equals("-."))
+            {
+                result = false;
+                Toast.MakeText(ApplicationContext,
+                    "Please input a valid offset number which is in the range of -12 to 12",
+                    ToastLength.Long).Show();
+            }
+            else
+            {
+                double off = Double.ParseDouble(offset);
+                if (off > 12.0 || off < -12.0)
+                {
+                    Toast.MakeText(ApplicationContext,
+                        "Please input a valid offset number which is in the range of -12 to 12",
+                        ToastLength.Long).Show();
+                    result = false;
+                }
+            }
+            if (result == true)
+            {
+                double off = Double.ParseDouble(offset);
+                if ((off <= (Double.ParseDouble(longitude) / 15 - 3.5)) ||
+                    (off >= (Double.ParseDouble(longitude) / 15 + 3.5)))
+                {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.SetTitle("Wrong Configuration ??");
+                    alert.SetMessage("Your timezone configuration doesn't match with the longtitude, please check again");
+                    
+                    alert.SetNeutralButton("OK", (senderAlert, args) =>
+                    {
+                        Toast.MakeText(this, "Set again!", ToastLength.Short).Show();
+                        
+                    });
+                    
+
+                    Dialog dialog = alert.Create();
+                    dialog.Show();
+
+                    result = false;
+                }
+            }
+            return result;
         }
    
     }
