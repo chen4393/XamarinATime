@@ -24,7 +24,6 @@ D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.dll
 D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.pdb
 D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.XamarinATime.apk
 D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.XamarinATime-Signed.apk
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\XamarinATime.csprojResolveAssemblyReference.cache
 D:\Performix\XamarinATime\XamarinATime\obj\Debug\XamarinATime.dll
 D:\Performix\XamarinATime\XamarinATime\obj\Debug\XamarinATime.pdb
 D:\Performix\XamarinATime\XamarinATime\obj\Debug\android\bin\XamarinATime.XamarinATime.apk

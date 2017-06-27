@@ -37,7 +37,7 @@ namespace XamarinATime
         private string message_lon;
         private string message_off;
 
-        private bool afterConfig;
+        private bool afterConfig = false;
         private bool wantToday;
 
         private int userYear;

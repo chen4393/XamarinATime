@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 using Java.Text;
 using Java.Util;
 using System.Text.RegularExpressions;
@@ -90,6 +91,10 @@ namespace XamarinATime
 
         private int mYear;
         private int mDayOfYear;
+        private int mMonth;
+        private int mDay;
+        private bool afterConfig;
+        private bool wantToday = true;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -106,6 +111,7 @@ namespace XamarinATime
             today_day = current_cal.Get(CalendarField.DayOfYear);
             mYear = current_cal.Get(CalendarField.Year);
             mDayOfYear = current_cal.Get(CalendarField.DayOfYear);
+            GetData();
             Init();
         }
 
@@ -114,27 +120,71 @@ namespace XamarinATime
             timeDisplay = (TextView)FindViewById<TextView>(Resource.Id.timeDisplay);
             configureText = (TextView)FindViewById<TextView>(Resource.Id.configure_text);
 
-            configureText.Text = "Using current time and location";
+            
 
             current_cal.Set(today_year, today_month, today_day);
 
             Date dis_date = new Date();
             displayDate = formater.Format(dis_date);
             timeDisplay.Text = displayDate;
-
+            configureText.Text = "Using current time and location";
             user_latitude = 44.96987;
             user_longitude = -93.22678;
             user_offset = -5.00;
+
+            if (afterConfig)
+            {
+                Calendar tempCalendar = Calendar.Instance;
+                today_year = tempCalendar.Get(CalendarField.Year);
+                today_month = tempCalendar.Get(CalendarField.Month);
+                today_day = tempCalendar.Get(CalendarField.DayOfMonth);
+                if (mYear == today_year && mMonth == today_month && mDay == today_day)
+                {
+                    wantToday = true;
+                    configureText.Text = "Using current time and location";
+                }
+                else
+                {
+                    wantToday = false;
+                    configureText.Text = "Using configured time and location";
+                }
+                
+                current_cal.Set(mYear, mMonth, mDay);
+                Date tempDate = current_cal.Time;
+                displayDate = formater.Format(tempDate);
+                timeDisplay.Text = displayDate;
+                afterConfig = false;
+            }
 
             Log.Warn(TAG, "this is a warning message");
             Log.Error(TAG, "this is an error message");
             
             InitPanel();
-            CalculateTimeSequence();
 
+            ////////////////////
+            if (wantToday)
+            {
+                current_cal = Calendar.Instance;
+                today_year = current_cal.Get(CalendarField.Year);
+                today_month = current_cal.Get(CalendarField.Month);
+                today_day = current_cal.Get(CalendarField.DayOfMonth);
+            }
+            
+            ////////////////////
             day_of_week = current_cal.Get(CalendarField.DayOfWeek);
             //Log.Warn(TAG, today_year + " " + today_month + " " + today_day);
             //Log.Warn(TAG, day_of_week.ToString());
+            
+            if (wantToday)
+            {
+                current_cal.Set(today_year, today_month, today_day);
+            }
+            else
+            {
+                current_cal.Set(mYear, mMonth, mDay);
+            }
+            
+            CalculateTimeSequence();
             SetSequence(day_of_week);
             DrawMaker();
             Button about = FindViewById<Button>(Resource.Id.About);
@@ -148,32 +198,50 @@ namespace XamarinATime
             Button configuration = FindViewById<Button>(Resource.Id.Configuration);
             configuration.Click += delegate
             {
-                /*
-                Context context = ApplicationContext;
-                string text = "Configure the location and date";
-                ToastLength duration = ToastLength.Short;
-                Toast toast = Toast.MakeText(context, text, duration);
-                toast.Show();
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.SetTitle("Configure Ausp Time");
-                alert.SetMessage("Alert Dialog");
-                alert.SetPositiveButton("Good", (senderAlert, args) => {
-                    //change value write your own set of instructions
-                    //you can also create an event for the same in xamarin
-                    //instead of writing things here
-                });
-                alert.SetNegativeButton("Not doing great", (senderAlert, args) => {
-                    //perform your own task for this conditional button click
-                });
-                RunOnUiThread(() => {
-                    alert.Show();
-                });
-                */
                 Intent intent = new Intent(this, typeof(ConfigurationActivity));
                 StartActivity(intent);
                 Finish();
             };
+        }
+
+        private void GetData()
+        {
+            Bundle extras = this.Intent.Extras;
+            if (extras == null)
+            {
+                return;
+            }
+
+            string input_latitude = extras.GetString(ConfigurationActivity.EXTRA_MESSAGE);
+            string input_longitude = extras.GetString(ConfigurationActivity.EXTRA_MESSAGE_1);
+            string input_offset = extras.GetString(ConfigurationActivity.EXTRA_MESSAGE_2);
+            string input_year = extras.GetString(ConfigurationActivity.EXTRA_MESSAGE_3);
+            string input_month = extras.GetString(ConfigurationActivity.EXTRA_MESSAGE_4);
+            string input_day = extras.GetString(ConfigurationActivity.EXTRA_MESSAGE_5);
+            string input_config = extras.GetString(ConfigurationActivity.EXTRA_MESSAGE_6);
+            string input_wantToday = extras.GetString(ConfigurationActivity.EXTRA_MESSAGE_7);
+
+            if (input_latitude == null || input_longitude == null ||
+                input_offset == null || input_year == null ||
+                input_month == null || input_day == null ||
+                input_config == null || input_wantToday == null)
+            {
+                return;
+            }
+
+            user_latitude = Double.ParseDouble(input_latitude);
+            user_longitude = Double.ParseDouble(input_longitude);
+            user_offset = Double.ParseDouble(input_offset);
+            mYear = Integer.ParseInt(input_year);
+            mMonth = Integer.ParseInt(input_month);
+            mDay = Integer.ParseInt(input_day);
+            afterConfig = Boolean.ParseBoolean(input_config);
+            wantToday = Boolean.ParseBoolean(input_wantToday);
+
+            Log.Warn(TAG, "afterConfig: " + afterConfig.ToString());
+            Log.Warn(TAG, "mYear: " + mYear.ToString());
+            Log.Warn(TAG, "mMonth: " + mMonth.ToString());
+            Log.Warn(TAG, "mDay: " + mDay.ToString());
         }
 
         private void InitPanel()
@@ -233,8 +301,6 @@ namespace XamarinATime
             sunsetTime_todayDefault = suntime.sunsetTime;
             flagrise = suntime.flagrise;
             flagset = suntime.flagset;
-
-            Log.Warn(TAG, "current_cal: " + current_cal.ToString());
 
             Calendar c_temp_yesterday = new GregorianCalendar(current_cal.Get(CalendarField.Year),
                                                               current_cal.Get(CalendarField.Month), 
