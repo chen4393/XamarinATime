@@ -129,6 +129,12 @@ namespace XamarinATime
             Init();
         }
 
+        protected override void OnDestroy()
+        {
+            ApplicationContext.GetSharedPreferences(ConfigurationActivity.PREFS_NAME, 0).Edit().Clear().Commit();
+            base.OnDestroy();
+        }
+
         private void Init()
         {
             timeDisplay = (TextView)FindViewById<TextView>(Resource.Id.timeDisplay);

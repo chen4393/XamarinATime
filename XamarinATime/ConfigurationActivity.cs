@@ -13,7 +13,7 @@ namespace XamarinATime
     [Activity(Label = "ConfigurationActivity")]
     public class ConfigurationActivity : Activity
     {
-        private const string PREFS_NAME = "MyPrefsFile";
+        public const string PREFS_NAME = "MyPrefsFile";
         public const string EXTRA_MESSAGE = "ATimeActivity";
         public const string EXTRA_MESSAGE_1 = "ATimeActivity_1";
         public const string EXTRA_MESSAGE_2 = "ATimeActivity_2";
@@ -80,7 +80,7 @@ namespace XamarinATime
                 provider = LocationManager.NetworkProvider;
             }
 
-            Location location = locationManager.GetLastKnownLocation(LocationManager.NetworkProvider);
+            Location location = locationManager.GetLastKnownLocation(provider);
             if (location != null)
             {
                 currentLatitude = location.Latitude;
@@ -96,7 +96,8 @@ namespace XamarinATime
 
             Log.Warn(MainActivity.TAG, "enabled_GPS == true? " + (enabled_GPS == true).ToString());
             Log.Warn(MainActivity.TAG, "location != null? " + (location != null).ToString());
-            Log.Warn(MainActivity.TAG, "provider: " + provider.ToString());
+            Log.Warn(MainActivity.TAG, "currentLatitude: " + currentLatitude.ToString());
+            Log.Warn(MainActivity.TAG, "currentLongitude: " + currentLongitude.ToString());
 
             current_cal = Calendar.Instance;
             TimeZone tz = current_cal.TimeZone;
@@ -156,6 +157,12 @@ namespace XamarinATime
             datepicker = FindViewById<DatePicker>(Resource.Id.datePicker_1);
             datepicker.Init(current_cal.Get(CalendarField.Year), current_cal.Get(CalendarField.Month),
                             current_cal.Get(CalendarField.DayOfMonth), null);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            //ApplicationContext.GetSharedPreferences(PREFS_NAME, 0).Edit().Clear().Commit();
         }
 
         protected void StoreConfig()
