@@ -80,7 +80,7 @@ namespace XamarinATime
                 provider = LocationManager.NetworkProvider;
             }
 
-            Location location = locationManager.GetLastKnownLocation(provider);
+            Location location = locationManager.GetLastKnownLocation(LocationManager.NetworkProvider);
             if (location != null)
             {
                 currentLatitude = location.Latitude;
@@ -93,9 +93,10 @@ namespace XamarinATime
                 currentLatitude = 44.98;
                 currentLongitude = -93.24;
             }
+
             Log.Warn(MainActivity.TAG, "enabled_GPS == true? " + (enabled_GPS == true).ToString());
             Log.Warn(MainActivity.TAG, "location != null? " + (location != null).ToString());
-            
+            Log.Warn(MainActivity.TAG, "provider: " + provider.ToString());
 
             current_cal = Calendar.Instance;
             TimeZone tz = current_cal.TimeZone;

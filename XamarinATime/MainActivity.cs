@@ -143,8 +143,8 @@ namespace XamarinATime
             timeDisplay.Text = displayDate;
             configureText.Text = "Using current time and location";
             
-            user_latitude = 44.96987;
-            user_longitude = -93.22678;
+            user_latitude = 44.98;
+            user_longitude = -93.24;
             user_offset = -5.00;
 
             Log.Warn(MainActivity.TAG, "customLatitude: " + customLatitude);
