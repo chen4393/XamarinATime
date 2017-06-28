@@ -6,6 +6,7 @@ using Java.Util;
 using Android.Widget;
 using Android.Views.InputMethods;
 using Java.Lang;
+using Android.Util;
 
 namespace XamarinATime
 {
@@ -26,9 +27,9 @@ namespace XamarinATime
         private LocationManager locationManager;
         private string provider;
 
-        private double currentLongitude;
-        private double currentLatitude;
-        private double offsetFromUtc;
+        private double currentLongitude = 44.98;
+        private double currentLatitude = -93.24;
+        private double offsetFromUtc = -5;
 
         private Calendar current_cal;
         private DatePicker datepicker;
@@ -92,6 +93,9 @@ namespace XamarinATime
                 currentLatitude = 44.98;
                 currentLongitude = -93.24;
             }
+            Log.Warn(MainActivity.TAG, "enabled_GPS == true? " + (enabled_GPS == true).ToString());
+            Log.Warn(MainActivity.TAG, "location != null? " + (location != null).ToString());
+            
 
             current_cal = Calendar.Instance;
             TimeZone tz = current_cal.TimeZone;
@@ -107,6 +111,70 @@ namespace XamarinATime
             message_lon = settings.GetString("myLongitude", currentLongitude.ToString());
             message_off = settings.GetString("myOffset", offsetFromUtc.ToString());
             Init();
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+            StoreConfig();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            locationManager = (LocationManager)GetSystemService(Context.LocationService);
+            bool enabled_GPS = locationManager.IsProviderEnabled(LocationManager.GpsProvider);
+            if (enabled_GPS)
+            {
+                provider = LocationManager.GpsProvider;
+            }
+            else
+            {
+                provider = LocationManager.NetworkProvider;
+            }
+
+            Location location = locationManager.GetLastKnownLocation(provider);
+            if (location != null)
+            {
+                currentLatitude = location.Latitude;
+                currentLatitude = System.Math.Round(currentLatitude * 100000.00) / 100000.00;
+                currentLongitude = location.Longitude;
+                currentLongitude = System.Math.Round(currentLongitude * 100000.00) / 100000.00;
+            }
+            else
+            {
+                currentLatitude = 44.98;
+                currentLongitude = -93.24;
+            }
+
+            current_cal = Calendar.Instance;
+            TimeZone tz = current_cal.TimeZone;
+            Date date = current_cal.Time;
+            offsetFromUtc = (tz.GetOffset(date.Time)) / 3600000.0;
+
+            datepicker = FindViewById<DatePicker>(Resource.Id.datePicker_1);
+            datepicker.Init(current_cal.Get(CalendarField.Year), current_cal.Get(CalendarField.Month),
+                            current_cal.Get(CalendarField.DayOfMonth), null);
+        }
+
+        protected void StoreConfig()
+        {
+            ApplicationContext.GetSharedPreferences(PREFS_NAME, 0).Edit().Clear().Commit();
+
+            ISharedPreferences settings = GetSharedPreferences(PREFS_NAME, 0);
+            ISharedPreferencesEditor editor = settings.Edit();
+            editor.PutInt("myYear", userYear);
+            editor.PutInt("myMonth", userMonth);
+            editor.PutInt("myDay", userDay);
+            bool result = CheckBeforeStore(message_lat, message_lon, message_off);
+
+            if (result)
+            {
+                editor.PutString("myLatitude", message_lat);
+                editor.PutString("myLongitude", message_lon);
+                editor.PutString("myOffset", message_off);
+                editor.Commit();
+            }
         }
 
         private void Init()
@@ -188,7 +256,7 @@ namespace XamarinATime
             message_wantToday = Boolean.ToString(wantToday);
             message_config = Boolean.ToString(afterConfig);
             Intent intent = new Intent(this, typeof(MainActivity));
-            //intent.SetFlags(ActivityFlags.ClearTop);
+            intent.SetFlags(ActivityFlags.ClearTop);
             bool result = CheckInput(message_lat, message_lon, message_off);
             if (result)
             {
@@ -299,6 +367,67 @@ namespace XamarinATime
             return result;
         }
    
+        private bool CheckBeforeStore(string latitude, string longitude, string offset)
+        {
+            bool result = true;
+            if (latitude == null || longitude == null)
+            {
+                result = false;
+            }
+
+            if (latitude.Equals("") || latitude.Equals("-") || latitude.Equals(".") || 
+                latitude.Equals(".-") || latitude.Equals("-."))
+            {
+                result = false;
+            }
+            else
+            {
+                double lat = Double.ParseDouble(latitude);
+                if (lat > 90.0 || lat < -90.0)
+                {
+                    result = false;
+                }
+            }
+
+            if (longitude.Equals("") || longitude.Equals("-") || longitude.Equals(".") || 
+                longitude.Equals(".-") || longitude.Equals("-."))
+            {
+                result = false;
+            }
+            else
+            {
+                double lon = Double.ParseDouble(longitude);
+                if (lon > 180.0 || lon < -180.0)
+                {
+                    result = false;
+                }
+            }
+
+            if (offset.Equals("") || offset.Equals("-") || offset.Equals(".") || 
+                offset.Equals(".-") || offset.Equals("-."))
+            {
+                result = false;
+            }
+            else
+            {
+                double off = Double.ParseDouble(offset);
+                if (off > 12.0 || off < -12.0)
+                {
+                    result = false;
+                }
+            }
+
+            if (result == true)
+            {
+                double off = Double.ParseDouble(offset);
+                if ((off <= (Double.ParseDouble(longitude) / 15 - 3.5)) || 
+                    (off >= (Double.ParseDouble(longitude) / 15 + 3.5)))
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
     }
 
 }

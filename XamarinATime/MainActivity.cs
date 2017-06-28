@@ -25,13 +25,16 @@ namespace XamarinATime
 
         private string displayDate;
 
-        private double user_offset = -5.0;
-
         private SimpleDateFormat formater = new SimpleDateFormat("MMM-dd");
 
         private SunTime suntime;
         private double user_latitude;
         private double user_longitude;
+        private double user_offset = -5.0;
+
+        private double customLatitude;
+        private double customLongitude;
+        private double customOffset;
 
         TextView[] upleft = new TextView[9];
         TextView[] upright = new TextView[9];
@@ -115,6 +118,17 @@ namespace XamarinATime
             Init();
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+            SetContentView(Resource.Layout.Main);
+
+            
+            mDayOfYear = current_cal.Get(CalendarField.DayOfYear);
+            GetData();
+            Init();
+        }
+
         private void Init()
         {
             timeDisplay = (TextView)FindViewById<TextView>(Resource.Id.timeDisplay);
@@ -128,9 +142,13 @@ namespace XamarinATime
             displayDate = formater.Format(dis_date);
             timeDisplay.Text = displayDate;
             configureText.Text = "Using current time and location";
+            
             user_latitude = 44.96987;
             user_longitude = -93.22678;
             user_offset = -5.00;
+
+            Log.Warn(MainActivity.TAG, "customLatitude: " + customLatitude);
+            Log.Warn(MainActivity.TAG, "customLongitude: " + customLongitude);
 
             if (afterConfig)
             {
@@ -138,7 +156,8 @@ namespace XamarinATime
                 today_year = tempCalendar.Get(CalendarField.Year);
                 today_month = tempCalendar.Get(CalendarField.Month);
                 today_day = tempCalendar.Get(CalendarField.DayOfMonth);
-                if (mYear == today_year && mMonth == today_month && mDay == today_day)
+                if (mYear == today_year && mMonth == today_month && mDay == today_day &&
+                    customLatitude == user_latitude && customLongitude == user_longitude && customOffset == user_offset)
                 {
                     wantToday = true;
                     configureText.Text = "Using current time and location";
@@ -233,19 +252,15 @@ namespace XamarinATime
                 return;
             }
 
-            user_latitude = Double.ParseDouble(input_latitude);
-            user_longitude = Double.ParseDouble(input_longitude);
-            user_offset = Double.ParseDouble(input_offset);
+            customLatitude = Double.ParseDouble(input_latitude);
+            customLongitude = Double.ParseDouble(input_longitude);
+            customOffset = Double.ParseDouble(input_offset);
             mYear = Integer.ParseInt(input_year);
             mMonth = Integer.ParseInt(input_month);
             mDay = Integer.ParseInt(input_day);
             afterConfig = Boolean.ParseBoolean(input_config);
             wantToday = Boolean.ParseBoolean(input_wantToday);
 
-            Log.Warn(TAG, "afterConfig: " + afterConfig.ToString());
-            Log.Warn(TAG, "mYear: " + mYear.ToString());
-            Log.Warn(TAG, "mMonth: " + mMonth.ToString());
-            Log.Warn(TAG, "mDay: " + mDay.ToString());
         }
 
         private void InitPanel()

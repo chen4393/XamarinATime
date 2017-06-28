@@ -41,3 +41,4 @@ D:\Performix\XamarinATime\XamarinATime\obj\Debug\R.cs.flag
 D:\Performix\XamarinATime\XamarinATime\obj\Debug\uploadflags.txt
 D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.dll.mdb
 D:\Performix\XamarinATime\XamarinATime\obj\Debug\android\assets\XamarinATime.dll.mdb
+D:\Performix\XamarinATime\XamarinATime\obj\Debug\XamarinATime.csprojResolveAssemblyReference.cache
