@@ -20,25 +20,3 @@ C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\o
 C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\bin\Debug\XamarinATime.dll.mdb
 C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\android\assets\XamarinATime.dll.mdb
 C:\Users\ccr13\documents\visual studio 2017\Projects\XamarinATime\XamarinATime\obj\Debug\res\layout\findmylocation.xml
-D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.dll
-D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.pdb
-D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.XamarinATime.apk
-D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.XamarinATime-Signed.apk
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\XamarinATime.dll
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\XamarinATime.pdb
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\android\bin\XamarinATime.XamarinATime.apk
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\layout\about.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\layout\configuration.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\layout\findmylocation.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\layout\main.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\values\strings.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\drawable\icon.png
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\values\styles.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\drawable\btn_blue.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\drawable\btn_grey.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\res\drawable\btn_white.xml
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\R.cs.flag
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\uploadflags.txt
-D:\Performix\XamarinATime\XamarinATime\bin\Debug\XamarinATime.dll.mdb
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\android\assets\XamarinATime.dll.mdb
-D:\Performix\XamarinATime\XamarinATime\obj\Debug\XamarinATime.csprojResolveAssemblyReference.cache
