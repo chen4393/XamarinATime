@@ -8,6 +8,7 @@ using Android.Views.InputMethods;
 using Java.Lang;
 using Android.Util;
 using Android.Graphics;
+using Android.Content.Res;
 
 namespace XamarinATime
 {
@@ -230,6 +231,12 @@ namespace XamarinATime
                 inputLatitude.Text = ("" + currentLatitude);
                 inputLongitude.Text = ("" + currentLongitude);
                 inputOffset.Text = ("" + offsetFromUtc);
+                ColorStateList mList = currentLocation.TextColors;
+                int color = mList.DefaultColor;
+                if (color.Equals(Color.Red))
+                {
+                    currentLocation.SetTextColor(Color.Black);
+                }
             };
             currentDate = (Button)FindViewById(Resource.Id.current_date);
             currentDate.Click += delegate
@@ -237,7 +244,12 @@ namespace XamarinATime
                 datepicker.UpdateDate(current_cal.Get(CalendarField.Year),
                     current_cal.Get(CalendarField.Month), 
                     current_cal.Get(CalendarField.DayOfMonth));
-
+                ColorStateList mList = currentDate.TextColors;
+                int color = mList.DefaultColor;
+                if (color.Equals(Color.Red))
+                {
+                    currentDate.SetTextColor(Color.Black);
+                }
             };
             findMyLocation = FindViewById<Button>(Resource.Id.findMyLoc);
             findMyLocation.Click += delegate
