@@ -41,9 +41,9 @@ namespace XamarinATime
         private bool afterConfig = false;
         private bool wantToday;
 
-        private int userYear;
-        private int userMonth;
-        private int userDay;
+        private int userYear = Calendar.Instance.Get(CalendarField.Year);
+        private int userMonth = Calendar.Instance.Get(CalendarField.Month);
+        private int userDay = Calendar.Instance.Get(CalendarField.DayOfMonth);
 
         private EditText inputLatitude;
         private EditText inputLongitude;
@@ -112,6 +112,9 @@ namespace XamarinATime
             message_lat = settings.GetString("myLatitude", currentLatitude.ToString());
             message_lon = settings.GetString("myLongitude", currentLongitude.ToString());
             message_off = settings.GetString("myOffset", offsetFromUtc.ToString());
+            userYear = settings.GetInt("myYear", userYear);
+            userMonth = settings.GetInt("myMonth", userMonth);
+            userDay = settings.GetInt("myDay", userDay);
             Init();
         }
 
@@ -155,8 +158,12 @@ namespace XamarinATime
             offsetFromUtc = (tz.GetOffset(date.Time)) / 3600000.0;
 
             datepicker = FindViewById<DatePicker>(Resource.Id.datePicker_1);
+            /*
             datepicker.Init(current_cal.Get(CalendarField.Year), current_cal.Get(CalendarField.Month),
                             current_cal.Get(CalendarField.DayOfMonth), null);
+            */
+            
+            datepicker.Init(userYear, userMonth, userDay, null);
         }
 
         protected override void OnDestroy()
@@ -174,6 +181,12 @@ namespace XamarinATime
             editor.PutInt("myYear", userYear);
             editor.PutInt("myMonth", userMonth);
             editor.PutInt("myDay", userDay);
+            Log.Warn(MainActivity.TAG, "userMonth: " + userMonth);
+            Log.Warn(MainActivity.TAG, "userDay: " + userDay);
+
+            datepicker = FindViewById<DatePicker>(Resource.Id.datePicker_1);
+            datepicker.Init(userYear, userMonth, userDay, null);
+
             bool result = CheckBeforeStore(message_lat, message_lon, message_off);
 
             if (result)
@@ -211,7 +224,8 @@ namespace XamarinATime
             currentDate.Click += delegate
             {
                 datepicker.UpdateDate(current_cal.Get(CalendarField.Year),
-                current_cal.Get(CalendarField.Month), current_cal.Get(CalendarField.DayOfMonth));
+                    current_cal.Get(CalendarField.Month), 
+                    current_cal.Get(CalendarField.DayOfMonth));
             };
             findMyLocation = FindViewById<Button>(Resource.Id.findMyLoc);
             findMyLocation.Click += delegate
@@ -233,6 +247,9 @@ namespace XamarinATime
                 SendData();
                 
             };
+
+            datepicker = FindViewById<DatePicker>(Resource.Id.datePicker_1);
+            datepicker.Init(userYear, userMonth, userDay, null);
         }
 
         private void SendData()

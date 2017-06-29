@@ -153,8 +153,7 @@ namespace XamarinATime
             user_longitude = -93.24;
             user_offset = -5.00;
 
-            Log.Warn(MainActivity.TAG, "customLatitude: " + customLatitude);
-            Log.Warn(MainActivity.TAG, "customLongitude: " + customLongitude);
+            
 
             if (afterConfig)
             {
