@@ -174,7 +174,7 @@ namespace XamarinATime
                 if (mYear == today_year && mMonth == today_month && mDay == today_day &&
                     Math.Abs(customLatitude - user_latitude) <= 0.01 &&
                     Math.Abs(customLongitude - user_longitude) <= 0.01 &&
-                    Math.Abs(customOffset - user_offset) <= 0.01)
+                    Math.Abs(customOffset - user_offset) <= 0.1)
                 {
                     wantToday = true;
                     configureText.Text = "Using current time and location";

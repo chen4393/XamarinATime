@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.Views.InputMethods;
 using Java.Lang;
 using Android.Util;
+using Android.Graphics;
 
 namespace XamarinATime
 {
@@ -165,6 +166,15 @@ namespace XamarinATime
             */
             
             datepicker.Init(userYear, userMonth, userDay, null);
+
+            ISharedPreferences settings = GetSharedPreferences(PREFS_NAME, 0);
+            message_lat = settings.GetString("myLatitude", currentLatitude.ToString());
+            message_lon = settings.GetString("myLongitude", currentLongitude.ToString());
+            message_off = settings.GetString("myOffset", offsetFromUtc.ToString());
+            userYear = settings.GetInt("myYear", userYear);
+            userMonth = settings.GetInt("myMonth", userMonth);
+            userDay = settings.GetInt("myDay", userDay);
+            Init();
         }
 
         protected override void OnDestroy()
@@ -227,6 +237,7 @@ namespace XamarinATime
                 datepicker.UpdateDate(current_cal.Get(CalendarField.Year),
                     current_cal.Get(CalendarField.Month), 
                     current_cal.Get(CalendarField.DayOfMonth));
+
             };
             findMyLocation = FindViewById<Button>(Resource.Id.findMyLoc);
             findMyLocation.Click += delegate
@@ -251,6 +262,28 @@ namespace XamarinATime
 
             datepicker = FindViewById<DatePicker>(Resource.Id.datePicker_1);
             datepicker.Init(userYear, userMonth, userDay, null);
+
+            bool result = CheckBeforeStore(message_lat, message_lon, message_off);
+            if (!result)
+            {
+                return;
+            }
+            double userLatitude = Double.ParseDouble(message_lat);
+            double userLongitude = Double.ParseDouble(message_lon);
+            double userOffset = Double.ParseDouble(message_off);
+            if (Math.Abs(currentLatitude - userLatitude) > 0.01 ||
+                Math.Abs(currentLongitude - userLongitude) > 0.01 ||
+                Math.Abs(offsetFromUtc - userOffset) > 0.1)
+            {
+                currentLocation.SetTextColor(Color.Red);
+            }
+
+            if (userYear != current_cal.Get(CalendarField.Year) ||
+                userMonth != current_cal.Get(CalendarField.Month) ||
+                userDay != current_cal.Get(CalendarField.DayOfMonth))
+            {
+                currentDate.SetTextColor(Color.Red);
+            }
         }
 
         private void SendData()
