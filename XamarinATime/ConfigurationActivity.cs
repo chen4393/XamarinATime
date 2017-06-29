@@ -175,7 +175,6 @@ namespace XamarinATime
             userYear = settings.GetInt("myYear", userYear);
             userMonth = settings.GetInt("myMonth", userMonth);
             userDay = settings.GetInt("myDay", userDay);
-            Init();
         }
 
         protected override void OnDestroy()
