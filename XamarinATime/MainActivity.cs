@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.Locations;
 using Android.OS;
 using Android.Util;
 using Android.Views;
@@ -148,12 +149,21 @@ namespace XamarinATime
             displayDate = formater.Format(dis_date);
             timeDisplay.Text = displayDate;
             configureText.Text = "Using current time and location";
-            
-            user_latitude = 44.98;
-            user_longitude = -93.24;
-            user_offset = -5.00;
 
-            
+            LocationManager locationManager = (LocationManager)GetSystemService(LocationService);
+            Location location = locationManager.GetLastKnownLocation(LocationManager.NetworkProvider);
+            if (location != null)
+            {
+                user_latitude = location.Latitude;
+                user_latitude = System.Math.Round(user_latitude * 100000.00) / 100000.00;
+                user_longitude = location.Longitude;
+                user_longitude = System.Math.Round(user_longitude * 100000.00) / 100000.00;
+            }
+
+            current_cal = Calendar.Instance;
+            TimeZone tz = current_cal.TimeZone;
+            Date date = current_cal.Time;
+            user_offset = (tz.GetOffset(date.Time)) / 3600000.0;
 
             if (afterConfig)
             {
@@ -162,7 +172,9 @@ namespace XamarinATime
                 today_month = tempCalendar.Get(CalendarField.Month);
                 today_day = tempCalendar.Get(CalendarField.DayOfMonth);
                 if (mYear == today_year && mMonth == today_month && mDay == today_day &&
-                    customLatitude == user_latitude && customLongitude == user_longitude && customOffset == user_offset)
+                    Math.Abs(customLatitude - user_latitude) <= 0.01 &&
+                    Math.Abs(customLongitude - user_longitude) <= 0.01 &&
+                    Math.Abs(customOffset - user_offset) <= 0.01)
                 {
                     wantToday = true;
                     configureText.Text = "Using current time and location";

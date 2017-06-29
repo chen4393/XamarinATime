@@ -69,8 +69,9 @@ namespace XamarinATime
             // Create your application here
             SetContentView(Resource.Layout.configuration);
 
-            locationManager = (LocationManager)GetSystemService(Context.LocationService);
-            bool enabled_GPS = locationManager.IsProviderEnabled(LocationManager.GpsProvider);
+            locationManager = (LocationManager)GetSystemService(LocationService);
+            bool enabled_GPS = false;
+            enabled_GPS = locationManager.IsProviderEnabled(LocationManager.GpsProvider);
             if (enabled_GPS)
             {
                 provider = LocationManager.GpsProvider;
@@ -80,7 +81,7 @@ namespace XamarinATime
                 provider = LocationManager.NetworkProvider;
             }
 
-            Location location = locationManager.GetLastKnownLocation(provider);
+            Location location = locationManager.GetLastKnownLocation(LocationManager.NetworkProvider);
             if (location != null)
             {
                 currentLatitude = location.Latitude;
@@ -138,7 +139,7 @@ namespace XamarinATime
                 provider = LocationManager.NetworkProvider;
             }
 
-            Location location = locationManager.GetLastKnownLocation(provider);
+            Location location = locationManager.GetLastKnownLocation(LocationManager.NetworkProvider);
             if (location != null)
             {
                 currentLatitude = location.Latitude;
